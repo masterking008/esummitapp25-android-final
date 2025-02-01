@@ -1,0 +1,89 @@
+{
+  "expo": {
+    "name": "E-Summit 25",
+    "slug": "summit2025",
+    "version": "3.0.4",
+    "orientation": "portrait",
+    "icon": "./assets/appicon.png",
+    "splash": {
+      "image": "./assets/splashfinal.png",
+      "backgroundColor": "#121212"
+    },
+    "plugins": [
+      "@config-plugins/react-native-blob-util",
+      "@config-plugins/react-native-pdf",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ],
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#ffffff"
+        }
+      ]
+    ],
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.ecell.esummit25",
+      "buildNumber": "7",
+      "ios": {
+        "config": {
+          "googleMapsApiKey": "AIzaSyBX4Ktw2PLyPVJJEf0AQKxwIN3b738C6JI"
+        }
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+      }
+    },
+    "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBX4Ktw2PLyPVJJEf0AQKxwIN3b738C6JI"
+        }
+      },
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/appicon.png",
+        "backgroundColor": "#121212"
+      },
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.DOWNLOAD_WITHOUT_NOTIFICATION",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.subhamagr.Esummit",
+      "googleServicesFile": "./src/google-services.json",
+      "targetSdkVersion": 34,
+      "compileSdkVersion": 34,
+      "buildToolsVersion": "34.0.0",
+      "minSdkversion": 34,
+      "versionCode": 17
+    },
+    "web": {
+      "favicon": "./assets/appicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e9ffb482-6fe2-483c-83df-15923e10c2ea"
+      }
+    },
+    "owner": "dev.bhavesh"
+  }
+}
