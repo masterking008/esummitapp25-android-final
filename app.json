@@ -74,7 +74,7 @@
       "compileSdkVersion": 34,
       "buildToolsVersion": "34.0.0",
       "minSdkversion": 34,
-      "versionCode": 17
+      "versionCode": 18
     },
     "web": {
       "favicon": "./assets/appicon.png"
