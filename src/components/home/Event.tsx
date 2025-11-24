@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   flag: {
     width: 80,
-    backgroundColor: '#5EBCF1',
+    backgroundColor: '#FFE100',
     paddingVertical: 4,
     paddingHorizontal: 6,
     borderRadius: 4,

@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Location } from "../../components/map";
-import { Footer } from "../../components/shared";
+import { Footer, Navbar } from "../../components/shared";
 import { useVenues } from "../../hooks/query/other-query";
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
@@ -51,11 +51,12 @@ export const Maps = () => {
     <ImageBackground
     // source={{ uri: 'https://res.cloudinary.com/dcqw5mziu/image/upload/v1737490961/mapsBg_v6bgbu.png' }}
 
-      source={require('../../assets/images/mapsBg.png')} // Replace with your image path
+      source={require('../../assets/images/homeBg.png')} // Replace with your image path
       style={StyleSheet.absoluteFill}
       resizeMode="cover" // Adjust the image scaling ('cover', 'contain', or 'stretch')
     >
       <View style={styles.container}>
+        <Navbar navigation={navigation} />
         <ScrollView
           style={[styles.container, { marginTop: 80 }]}
           showsVerticalScrollIndicator={false}
@@ -66,20 +67,17 @@ export const Maps = () => {
           {isLoading ? (
             <ActivityIndicator
               animating={true}
-              color="#4E8FB4"
+              color="#FFE100"
               size="large"
               style={{ marginTop: 20 }}
             />
           ) : (
-            <View style={{ height: '100%', marginBottom: 80 }}>
+            <View style={{ flex: 1, paddingBottom: 100 }}>
               <Text style={styles.title}>VENUES</Text>
               <View style={styles.content}>
                 {venuedata?.map((item, index) => (
-                  <View key={index}>
-                    <Location name={item.name} image={item.image} latitude={item.latitude} longitude={item.longitude} />
-                  </View>
+                  <Location key={index} name={item.name} image={item.image} latitude={item.latitude} longitude={item.longitude} />
                 ))}
-                {/* <Marker coordinate={{latitude: Number(item.latitude), longitude: Number(item.longitude)}}/> */}
               </View>
             </View>
           )}
@@ -107,8 +105,9 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    padding: 10,
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    paddingBottom: 20,
   },
   map: {
     width: "100%",

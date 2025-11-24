@@ -65,7 +65,7 @@ export const MultiSelectBox = (props: IMultiSelectProps) => {
         onPress={() => Linking.openURL('https://ecell.in/esummit/reg/')}>
         <Text
           style={{
-            color: '#46B1EE',
+            color: '#FFE100',
             textAlign: 'center',
             fontSize: 15,
             fontWeight: 'bold',
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#161616',
     // fontFamily: 'Poppins',
     color: '#FFFFFF',
-    borderBottomColor: '#46B1EE',
+    borderBottomColor: '#FFE100',
     borderBottomWidth: 2,
     fontSize: 14,
     lineHeight: 17,

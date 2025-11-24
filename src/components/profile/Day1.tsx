@@ -43,7 +43,7 @@
 //         {isLoading ? (
 //           <ActivityIndicator
 //             animating={true}
-//             color="#4E8FB4"
+//             color="#FFE100"
 //             size="small"
 //             style={{ marginTop: 20 }}
 //           />

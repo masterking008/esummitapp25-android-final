@@ -75,7 +75,7 @@ export const HighlightBox = (props: IHighlightBoxProps) => {
                 <Text
                   key={index}
                   style={{
-                    color: props.index == index ? '#B2B4FF' : '#fff',
+                    color: props.index == index ? '#ffe100' : '#fff',
                     marginHorizontal: 8,
                     fontSize: 10,
                   }}>

@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, View, StatusBar } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useToast } from "react-native-toast-notifications";
 import { TextInput } from "../../components/form";
@@ -14,12 +14,14 @@ import { useFlowStore } from "../../store/flow-store";
 import { useProfileStore } from "../../store/profile-store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 const TIMEOUT = 60 * 5;
 
 export const SignInScreen = () => {
   const email = useProfileStore((state) => state.email);
   const setEmail = useProfileStore((state) => state.setEmail);
-  const name = useProfileStore((state) => state.name)
+  const name = useProfileStore((state) => state.name);
+
 
 
   const toast = useToast();
@@ -73,23 +75,20 @@ export const SignInScreen = () => {
   return (
     // <ScrollView>
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#FED606" />
       <LinearGradient
-        colors={["#4728E0", "#161616",]}
-        // useAngle={true}
-        // angle={-88.84}
+        colors={['#FED606', '#161616']}
         start={[0.5, 0]}
         end={[0.5, 1]}
         locations={[0, 0.7]}
-        style={{ height: 214, alignItems: "center", paddingTop: 100 }}
+        style={styles.header}
       >
-        <View
-        //  style={{ height: 214, alignItems: 'center', paddingTop: 100 }}
-        >
+        <View>
           {/* <Logo width={574} height={120} /> */}
           <Image
             source={require('../../assets/images/logowhite.png')}
             style={styles.logo}
-            resizeMode="cover"
+            resizeMode="contain"
           />
         </View>
       </LinearGradient>
@@ -114,32 +113,39 @@ export const SignInScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#161616",
-    width: "100%",
-    // height: Dimensions.get('window').height,
-    height: "100%",
+    backgroundColor: '#161616',
+    flex: 1,
+    width: '100%',
+    height: Dimensions.get('window').height,
+  },
+  header: {
+    height: Dimensions.get('window').height * 0.35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: StatusBar.currentHeight || 50,
   },
   section: {
     padding: 20,
-    backgroundColor: "#161616",
-    height: "100%",
+    backgroundColor: '#161616',
+    flex: 1,
   },
   heading: {
-    fontFamily: "ProximaBold",
+    fontFamily: 'ProximaBold',
     fontSize: 23,
     lineHeight: 28,
-    color: "#FFFFFF",
-    textTransform: "uppercase",
+    color: '#FFFFFF',
+    textTransform: 'uppercase',
+    marginBottom: 20,
   },
   subheading: {
-    fontFamily: "Proxima",
+    fontFamily: 'Proxima',
     fontSize: 14,
     lineHeight: 17,
-    color: "#A2A2A2",
+    color: '#A2A2A2',
+    marginBottom: 20,
   },
   logo: {
-    width: 310,
-    height: 106,
-  
+    width: 275,
+    height: 125,
   },
 });

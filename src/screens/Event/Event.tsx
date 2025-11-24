@@ -27,6 +27,7 @@ import { useProfileStore } from '../../store/profile-store';
 import { getTime, mapUrl } from '../../utils/helper';
 // import PushNotification from 'react-native-push-notification';
 import * as Notifications from 'expo-notifications';
+import { LocationIcon, CalendarIcon, ClockIcon, BellIcon, BellOffIcon } from '../../components/Icons.tsx';
 
 export const Event = ({ route }) => {
   const { data: EventData, isLoading } = useEventById(route.params.id);
@@ -149,218 +150,285 @@ export const Event = ({ route }) => {
   };
 
   return (
-    <View
-      //   useAngle
-      //   angle={-128.06}
-      style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.headcont}>
-          <View style={styles.profileIcon}>
-            <Button onPress={() => navigation.navigate('Profile' as never)}>
-              <Text style={styles.profileiconText}>{name[0]}</Text>
-            </Button>
-          </View>
-        </View>
+        <TouchableOpacity 
+          style={styles.profileIcon}
+          onPress={() => navigation.navigate('Profile' as never)}
+        >
+          <Text style={styles.profileiconText}>{name[0]}</Text>
+        </TouchableOpacity>
       </View>
+      
       {isLoading ? (
-        <ActivityIndicator
-          animating={true}
-          color="#4E8FB4"
-          size="large"
-          style={{ marginTop: 20 }}
-        />
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#FFE100" />
+        </View>
       ) : (
-        <ScrollView style={{ paddingHorizontal: 20, marginTop: 60}}>
-          <View style={{ height: '100%', paddingBottom: 180 }}>
+        <ScrollView 
+          style={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
+        >
+          <View style={styles.imageContainer}>
+            <Image
+              source={EventData?.data.image ? { uri: EventData.data.image } : require('../../assets/images/user_image.jpg')}
+              style={styles.eventImage}
+            />
+          </View>
 
-            {EventData?.data.image === null || EventData?.data.image === undefined ? (
-              <Image
-                source={require('../../assets/images/user_image.jpg')}
-                resizeMode={'contain'}
-                style={{
-                  width: Dimensions.get('window').width - 40,
-                  height: 200,
-                  alignSelf: 'center',
-                  borderRadius: 20,
-                  backgroundColor: '#161616',
-                }}
-              />
-            ) : (
-              <Image
-                source={{ uri: EventData?.data.image }}
-                resizeMode={'contain'}
-                style={{
-                  width: Dimensions.get('window').width - 40,
-                  height: 200,
-                  alignSelf: 'center',
-                  borderRadius: 20,
-                  backgroundColor: '#161616',
-                }}
-              />
-            )}
-
-            <Text style={styles.name}>{EventData?.data.name}</Text>
-
-            {value === 'reserve a seat' ? (
+          <View style={styles.contentContainer}>
+            <Text style={styles.eventTitle}>{EventData?.data.name}</Text>
+            
+            <View style={styles.actionContainer}>
               <SegmentButton
                 value={value}
                 onValueChange={handleTag}
-                buttons={['seat reserved']}
+                buttons={value === 'reserve a seat' ? ['seat reserved'] : ['reserve a seat']}
               />
-            ) : (
-              <SegmentButton
-                value={value}
-                onValueChange={handleTag}
-                buttons={['reserve a seat']}
-              />
-            )}
+            </View>
 
+            <View style={styles.detailsContainer}>
+              <TouchableOpacity style={styles.detailItem} onPress={handleVenueClick}>
+                <View style={styles.detailIcon}>
+                  <LocationIcon size={20} color="#1e1e1e" />
+                </View>
+                <View style={styles.detailContent}>
+                  <Text style={styles.detailLabel}>Venue</Text>
+                  <Text style={styles.detailValue}>{EventData?.data.venue.name}</Text>
+                </View>
+              </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleVenueClick}>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.heading2}>Venue: </Text>
-                <Text
-                  style={[styles.heading2, { fontFamily: 'Proxima' }]}>
-                  {EventData?.data.venue.name}
-                </Text>
+              <View style={styles.detailItem}>
+                <View style={styles.detailIcon}>
+                  <CalendarIcon size={20} color="#1e1e1e" />
+                </View>
+                <View style={styles.detailContent}>
+                  <Text style={styles.detailLabel}>Date</Text>
+                  <Text style={styles.detailValue}>
+                    {EventData?.data.day === '1' ? '11th December' : '12th December'}
+                  </Text>
+                </View>
               </View>
-            </TouchableOpacity>
 
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.heading2}>Event On: </Text>
-              {EventData?.data.day === '1' ? (
-                <Text
-                  style={[styles.heading2, { fontFamily: 'Proxima' }]}>
-                  1st February
-                </Text>
-              ) : (
-                <Text
-                  style={[styles.heading2, { fontFamily: 'Proxima' }]}>
-                  2nd February
-                </Text>
-              )}
+              <View style={styles.detailItem}>
+                <View style={styles.detailIcon}>
+                  <ClockIcon size={20} color="#1e1e1e" />
+                </View>
+                <View style={styles.detailContent}>
+                  <Text style={styles.detailLabel}>Time</Text>
+                  <Text style={styles.detailValue}>
+                    {getTime(startTime)} - {getTime(endTime)}
+                  </Text>
+                </View>
+              </View>
             </View>
 
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.heading2}>Timings: </Text>
-              <Text
-                style={[styles.heading2, { fontFamily: 'Proxima' }]}>
-                {getTime(startTime)} - {getTime(endTime)}
-              </Text>
-            </View>
+            {EventData?.data.speakers && (
+              <View style={styles.sectionContainer}>
+                <Text style={styles.sectionTitle}>Speakers</Text>
+                <View style={styles.speakersContainer}>
+                  <Text style={styles.speakersText}>{EventData.data.speakers}</Text>
+                </View>
+              </View>
+            )}
 
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.heading2}>Speakers: </Text>
-            </View>
-
-            <View style={{ flexDirection: 'row' }}>
-              <Text
-                style={[styles.description, { fontFamily: 'Proxima' }]}>
-                {EventData?.data.speakers}
-              </Text>
-            </View>
-
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.heading2}>
-                About Session
-              </Text>
-            </View>
-
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.description}>
-                {EventData?.data.description}
-              </Text>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>About Session</Text>
+              <View style={styles.descriptionContainer}>
+                <Text style={styles.descriptionText}>{EventData?.data.description}</Text>
+              </View>
             </View>
           </View>
         </ScrollView>
       )}
-      <FAB
-        style={{
-          position: 'absolute',
-          margin: 16,
-          right: 10,
-          bottom: 90,
-          backgroundColor: '#382ad3',
-        }}
-        icon={isNotified ? 'bell-off' : 'bell-badge'}
-        label={isNotified ? 'We will notify you' : 'Notify Me'}
-        onPress={handleNotify}
-        color = '#fff'
-      />
+      
+      <View style={styles.fabContainer}>
+        <TouchableOpacity style={styles.notifyButton} onPress={handleNotify}>
+          <View style={styles.notifyIconContainer}>
+            {isNotified ? (
+              <BellOffIcon size={18} color="#1e1e1e" />
+            ) : (
+              <BellIcon size={18} color="#1e1e1e" />
+            )}
+          </View>
+          <Text style={styles.notifyText}>
+            {isNotified ? 'Notifications On' : 'Notify Me'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      
       <Footer navigation={navigation} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#05020E',
+  },
   header: {
     position: 'absolute',
-    top: 0,
-    flexDirection: 'row',
-    paddingVertical: 10
-    // marginTop: 20,
+    top: 50,
+    left: 20,
+    zIndex: 10,
   },
-  headcont: {
-    flexDirection: 'row',
-    paddingHorizontal: 20
-  },
-   profileIcon: {
-    borderRadius: 50,
-    backgroundColor: '#6C24D3',
-    width: 40,
-    aspectRatio: 1,
+  profileIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: '#FFE100',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   profileiconText: {
     fontFamily: 'ProximaBold',
+    fontSize: 18,
+    color: '#1e1e1e',
     textTransform: 'uppercase',
-    color: '#fff',
-    fontSize: 16,
   },
-  daybutton: {
-    backgroundColor: '#382ad3',
-    color: '#ffffff',
-    width: 70,
-    marginHorizontal: 5
-  },
-  daybuttonText: {
-    fontFamily: 'Proxima',
-    color: '#ffffff'
-  },
-  container: {
+  loadingContainer: {
     flex: 1,
-    backgroundColor: "#05020E"
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  name: {
-    fontFamily: 'Proxima',
-    fontSize: 20,
-    fontWeight: 'bold',
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    // fontFamily: 'Poppins',
-    color: '#FFFFFF',
-    textAlign: 'center'
+  scrollView: {
+    flex: 1,
   },
-  heading2: {
-    fontSize: 16,
-    margin: 5,
-    fontFamily: 'ProximaBold',
-    // fontFamily: 'Poppins',
-    color: '#FFFFFF',
-    // textTransform: 'uppercase',
-    paddingVertical: 3,
+  scrollContent: {
+    paddingBottom: 120,
   },
-  description: {
-    fontSize: 14,
-    fontFamily: 'Proxima',
-    // fontFamily: 'Poppins',
-    color: '#FFFFFF',
-    // borderTopColor: '#382ad3',
+  imageContainer: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width,
+    marginBottom: 20,
+    overflow: 'hidden',
+    backgroundColor: '#161616',
+  },
+  eventImage: {
     width: '100%',
-    // borderTopWidth: 2,
-    padding: 10,
-    backgroundColor: '#232323',
-    borderRadius: 10
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  contentContainer: {
+    paddingHorizontal: 20,
+  },
+  eventTitle: {
+    fontSize: 28,
+    fontFamily: 'ProximaBold',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 24,
+    lineHeight: 34,
+  },
+  actionContainer: {
+    marginBottom: 32,
+  },
+  detailsContainer: {
+    marginBottom: 32,
+  },
+  detailItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1A1A1A',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#2A2A2A',
+  },
+  detailIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#FFE100',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+
+  detailContent: {
+    flex: 1,
+  },
+  detailLabel: {
+    fontSize: 12,
+    fontFamily: 'Proxima',
+    color: '#999999',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 4,
+  },
+  detailValue: {
+    fontSize: 16,
+    fontFamily: 'ProximaBold',
+    color: '#FFFFFF',
+    lineHeight: 20,
+  },
+  sectionContainer: {
+    marginBottom: 24,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontFamily: 'ProximaBold',
+    color: '#FFFFFF',
+    marginBottom: 16,
+  },
+  speakersContainer: {
+    backgroundColor: '#1A1A1A',
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#2A2A2A',
+  },
+  speakersText: {
+    fontSize: 16,
+    fontFamily: 'Proxima',
+    color: '#FFFFFF',
+    lineHeight: 24,
+  },
+  descriptionContainer: {
+    backgroundColor: '#1A1A1A',
+    borderRadius: 16,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: '#2A2A2A',
+  },
+  descriptionText: {
+    fontSize: 16,
+    fontFamily: 'Proxima',
+    color: '#FFFFFF',
+    lineHeight: 24,
+  },
+  fabContainer: {
+    position: 'absolute',
+    bottom: 100,
+    right: 20,
+  },
+  notifyButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFE100',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 25,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  notifyIconContainer: {
+    marginRight: 8,
+  },
+  notifyText: {
+    fontSize: 14,
+    fontFamily: 'ProximaBold',
+    color: '#1e1e1e',
   },
 });

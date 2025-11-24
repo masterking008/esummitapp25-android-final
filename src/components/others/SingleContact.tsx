@@ -26,6 +26,7 @@ export const SingleContact = (props: ISingleContactProps) => {
           source={{
             uri: props.image,
           }}
+          style={styles.avatar}
         />
         <Text style={[styles.center, { paddingHorizontal: 10 }, styles.name]}>
           {props.name}
@@ -35,12 +36,12 @@ export const SingleContact = (props: ISingleContactProps) => {
         <TouchableOpacity
           style={styles.center}
           onPress={() => Linking.openURL(`tel:${props.phone}`)}>
-          <Avatar.Icon icon="phone" size={30} />
+          <Avatar.Icon icon="phone" size={30} style={styles.avatar} />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.center}
           onPress={() => Linking.openURL(`mailto:${props.email}`)}>
-          <Avatar.Icon icon="email" size={30} />
+          <Avatar.Icon icon="email" size={30} style={styles.avatar} />
         </TouchableOpacity>
       </View>
     </View>
@@ -65,4 +66,8 @@ const styles = StyleSheet.create({
     color: '#D3D3D3',
     textTransform: 'capitalize',
   },
+  avatar: {
+    backgroundColor: '#FED606',
+    color: '#1e1e1e'
+  }
 });

@@ -34,9 +34,14 @@ export const Navbar = ({ navigation }) => {
             </View>
           ) : (
             <View style={styles.profileIcon}>
-              <Button onPress={() => navigation.navigate('Profile' as never)}>
-                <Text style={styles.profileiconText}>{name[0]}</Text>
-              </Button>
+              <LinearGradient
+                colors={['#FED606', '#FFE100']}
+                style={styles.profileIcon}
+              >
+                <Button onPress={() => navigation.navigate('Profile' as never)}>
+                  <Text style={styles.profileiconText}>{name[0]}</Text>
+                </Button>
+              </LinearGradient>
             </View>
           )}
         </TouchableOpacity>
@@ -47,8 +52,8 @@ export const Navbar = ({ navigation }) => {
                     <EcellSvg width={60} height={60} />
                   )} */}
           <Image
-            source={require('../../assets/images/esummitlogo.png')}
-            style={[{ width: 150, height: 45 }]}
+            source={require('../../assets/images/logowhite.png')}
+            style={[{ width: 150, height: 35 }]}
             resizeMode="cover"
           />
           {/* <EcellSvg width={60} height={60} /> */}
@@ -64,29 +69,25 @@ const styles = StyleSheet.create({
     top: 0,
     flexDirection: 'row',
     paddingVertical: 10,
-    // backgroundColor: "#05020E",
-    width: '100%'
-    // marginTop: 20,
+    paddingTop: 20,
+    width: '100%',
+    zIndex: 10,
   },
   headcont: {
     flexDirection: 'row',
     paddingHorizontal: 20,
-    // backgroundColor: "#05020E",
     width: '100%',
-    // justifyContent: 'center',
     alignItems: 'center'
   },
   innerheadcont: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     paddingHorizontal: 40,
-    // backgroundColor: "#05020E",
     width: '100%',
     marginRight: 10,
   },
   profileIcon: {
     borderRadius: 50,
-    backgroundColor: '#6C24D3',
     width: 40,
     aspectRatio: 1,
     justifyContent: 'center',
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   profileiconText: {
     fontFamily: 'ProximaBold',
     textTransform: 'uppercase',
-    color: '#fff',
+    color: '#1e1e1e',
     fontSize: 16,
   },
 });

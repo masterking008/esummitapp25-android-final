@@ -21,7 +21,7 @@ export const SegmentButton = (props: ISegmentButtonProps) => {
             key={index}
             style={[
               styles.button,
-              props.value === 'reserve a seat' && styles.selectedButton,
+              props.value === button && styles.selectedButton,
               index === 0 && {
                 borderTopLeftRadius: 20,
                 borderBottomLeftRadius: 20,
@@ -38,6 +38,7 @@ export const SegmentButton = (props: ISegmentButtonProps) => {
                 {
                   fontFamily: 'ProximaBold',
                   textTransform: 'uppercase',
+                  color: props.value === button ? '#1e1e1e' : '#FFFFFF',
                 },
               ]}>
               {button}
@@ -52,22 +53,24 @@ export const SegmentButton = (props: ISegmentButtonProps) => {
 const styles = {
   container: {
     backgroundColor: 'transparent',
-    paddingVertical: 10,
+    paddingVertical: 16,
   },
   button: {
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    backgroundColor: '#382ad3',
-    borderColor: '#382ad3',
-    borderWidth: 1,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    backgroundColor: '#2A2A2A',
+    borderColor: '#FFE100',
+    borderWidth: 2,
+    minWidth: 140,
+    alignItems: 'center',
   },
   selectedButton: {
-    backgroundColor: '#382ad3',
-    borderColor: '#382ad3',
+    backgroundColor: '#FFE100',
+    borderColor: '#FFE100',
   },
   buttonText: {
     color: '#FFFFFF',
     fontSize: 14,
-    // fontFamily: 'Poppins',
+    fontWeight: '600',
   },
 };

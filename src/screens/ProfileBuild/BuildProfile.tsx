@@ -38,9 +38,26 @@ export const BuildProfileScreen = () => {
   // };
 
   const handleSubmit = () => {
-    // const formattedInterest = selectedItems.map(item => ({ id: item }));
-    if (selectedLanguages.length === 0 || selectedPerson === '' || selectedMeet === '') {
-      toast.show('Please answer all question', { type: 'danger' })
+    console.log('Validation check:', {
+      selectedLanguages: selectedLanguages,
+      selectedPerson: selectedPerson,
+      selectedMeet: selectedMeet,
+      languagesLength: selectedLanguages.length,
+      personEmpty: selectedPerson === '',
+      meetEmpty: selectedMeet === ''
+    });
+    
+    if (selectedLanguages.length === 0) {
+      toast.show('Please select at least one interest', { type: 'danger' })
+      return;
+    }
+    if (!selectedPerson) {
+      toast.show('Please select who you are', { type: 'danger' })
+      return;
+    }
+    if (!selectedMeet) {
+      toast.show('Please select whom you want to meet', { type: 'danger' })
+      return;
     }
     else {
       saveInterest({ email, interest: selectedLanguages, persontype: selectedPerson, meet: selectedMeet }).then(data => {
@@ -104,11 +121,17 @@ export const BuildProfileScreen = () => {
   const [selectedMeet, setSelectedMeet] = useState('');
 
   const toggleLanguage = (languageId) => {
-    setSelectedLanguages((prevSelectedLanguages) =>
-      prevSelectedLanguages.includes(languageId)
+    console.log('toggleLanguage called with:', languageId);
+    console.log('Current selectedLanguages:', selectedLanguages);
+    
+    setSelectedLanguages((prevSelectedLanguages) => {
+      const newSelection = prevSelectedLanguages.includes(languageId)
         ? prevSelectedLanguages.filter((id) => id !== languageId)
-        : [...prevSelectedLanguages, languageId]
-    );
+        : [...prevSelectedLanguages, languageId];
+      
+      console.log('New selectedLanguages:', newSelection);
+      return newSelection;
+    });
   };
 
   const togglePerson = (personID) => {
@@ -228,9 +251,9 @@ const styles = StyleSheet.create({
   },
   checkedcont: {
     textAlign: 'center',
-    borderColor: '#382ad3',
+    borderColor: '#FFE100',
     borderWidth: 2,
-    backgroundColor: '#382ad3',
+    backgroundColor: '#FFE100',
     padding: 10,
     margin: 3,
     flexDirection: 'row',

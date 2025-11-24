@@ -17,11 +17,12 @@ import {
   Faq,
   Follow,
 } from '../../components/others';
-import { Footer } from '../../components/shared';
+import { Footer, Navbar } from '../../components/shared';
 import CrossSvg from '../../components/svgs/cross';
 import { useSchedule } from '../../hooks/query/other-query';
 import { FLOW_STAGES } from '../../contants';
 import { useFlowStore } from '../../store/flow-store';
+import { PRODUCTION_BASE_URL } from '../../api/base';
 
 
 export const More = () => {
@@ -43,17 +44,13 @@ export const More = () => {
 
   const setFlow = useFlowStore(state => state.setFlow);
 
-  const handleLogout = async () => {
-    setFlow(FLOW_STAGES.AUTH);
-    await AsyncStorage.removeItem('Esummit24email');
-    navigation.navigate('SignIn' as never);
-  };
+
 
   const handleDeleteAccount = async () => {
     try {
       const email = await AsyncStorage.getItem('Esummit24email'); // Ensure you retrieve the email
       if (email) {
-        await fetch('https://apiserver.ecell.in/app25/delete-profile/', {
+        await fetch(`${PRODUCTION_BASE_URL}/delete-profile/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -75,12 +72,13 @@ export const More = () => {
   return (
     <>
       <ImageBackground
-        source={require('../../assets/images/moreBg.png')}
+        source={require('../../assets/images/homeBg.png')}
         style={StyleSheet.absoluteFill}
         resizeMode="cover"
       >
         <View style={styles.container}>
-          <ScrollView>
+          <Navbar navigation={navigation} />
+          <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
             <Portal>
               {/* Modal for PDFs */}
               <Modal
@@ -107,7 +105,7 @@ export const More = () => {
               >
                 <Text style={styles.modalTitle}>Delete Account</Text>
                 <Text style={styles.modalMessage}>
-                  This action will delete your account, and you will lose all data associated with E-Summit 25.
+                  This action will delete your account, and you will lose all data associated with 21st E-Summit.
                 </Text>
                 <View style={styles.modalActions}>
                   <Button
@@ -128,6 +126,8 @@ export const More = () => {
                   </Button>
                 </View>
               </Modal>
+
+
             </Portal>
 
             <Faq />
@@ -187,6 +187,7 @@ export const More = () => {
               ))
             )}
 
+
             <Follow />
           </ScrollView>
         </View>
@@ -198,9 +199,13 @@ export const More = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    padding: 20,
-    paddingTop: 60,
+    flex: 1,
+    paddingTop: 80,
+  },
+  scrollView: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingBottom: 100,
   },
   content1: {},
   follow: {
@@ -218,10 +223,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'hsla(0, 0.00%, 100.00%, 0.05)',
   },
   containerStyle: {
-    backgroundColor: '#1F2122',
+    backgroundColor: 'hsla(0, 0.00%, 0.00%, 0.9)',
+    borderWidth: 0.5,
+    borderColor: 'hsla(0, 0.00%, 100.00%, 0.1)',
     paddingHorizontal: 20,
     paddingBottom: 20,
     alignSelf: 'center',
+    borderRadius: 15,
     height:
       Dimensions.get('window').height > Dimensions.get('window').width
         ? '75%'
@@ -229,9 +237,11 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   deleteContainerStyle: {
-    backgroundColor: '#1F2122',
+    backgroundColor: 'hsla(0, 0.00%, 0.00%, 0.9)',
+    borderWidth: 0.5,
+    borderColor: 'hsla(0, 0.00%, 100.00%, 0.1)',
     padding: 20,
-    borderRadius: 10,
+    borderRadius: 15,
     alignSelf: 'center',
     width: '90%',
   },
@@ -264,4 +274,5 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontFamily: 'ProximaBold',
   },
+
 });

@@ -35,7 +35,7 @@ export const EventAttendance = (props: IEventAttendanceProps) => {
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator animating={true} color="#4E8FB4" size="large" />
+        <ActivityIndicator animating={true} color="#FFE100" size="large" />
       ) : (
         <>
           {qrCode?.success && qrCode?.data.tag !== 'not going' ? (

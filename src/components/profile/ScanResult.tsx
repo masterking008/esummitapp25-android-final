@@ -42,7 +42,7 @@
 //   return (
 //     <View style={styles.container}>
 //       {isLoading ? (
-//         <ActivityIndicator animating={true} color="#4E8FB4" size="large" />
+//         <ActivityIndicator animating={true} color="#FFE100" size="large" />
 //       ) : (
 //         <>
 //           {qrCode?.data.isRegistered ? (
@@ -170,7 +170,7 @@ export const ScanResult = (props: IScanResultProps) => {
   // return (
   //   <View style={styles.container}>
   //     {isLoading ? (
-  //       <ActivityIndicator animating={true} color="#4E8FB4" size="large" />
+  //       <ActivityIndicator animating={true} color="#FFE100" size="large" />
   //     ) : qrCode?.data ? (
   //       <>
   //         {qrCode.data.isRegistered ? (
@@ -221,7 +221,7 @@ export const ScanResult = (props: IScanResultProps) => {
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator animating={true} color="#4E8FB4" size="large" />
+        <ActivityIndicator animating={true} color="#FFE100" size="large" />
       ) : qrCode?.data ? (
         <>
           {qrCode.data.isRegistered ? (

@@ -1,98 +1,94 @@
 import React from 'react';
-
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import EventMenuSvg from '../svgs/events';
-import MapsMenuSvg from '../svgs/maps';
-import MoreMenuSvg from '../svgs/more';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { Button } from 'react-native-paper';
+import { useRoute } from '@react-navigation/native';
 
+interface FooterProps {
+  navigation: any;
+}
 
-export const Footer = ({ navigation }) => {
+interface TabItem {
+  name: string;
+  route: string;
+  icon: any;
+  label: string;
+}
+
+export const Footer: React.FC<FooterProps> = ({ navigation }) => {
   const route = useRoute();
 
+  const tabs: TabItem[] = [
+    { name: 'Home', route: 'Home', icon: require('../../assets/images/homeicon.png'), label: 'Home' },
+    { name: 'ConnectMain', route: 'ConnectMain', icon: require('../../assets/images/networkicon.png'), label: 'Network' },
+    { name: 'Map', route: 'Map', icon: require('../../assets/images/mapicon.png'), label: 'Maps' },
+    { name: 'More', route: 'More', icon: require('../../assets/images/moreicon.png'), label: 'More' },
+  ];
+
+  const renderTab = (tab: TabItem) => {
+    const isActive = route.name === tab.route;
+    
+    return (
+      <TouchableOpacity
+        key={tab.name}
+        style={[styles.tab, isActive && styles.activeTab]}
+        onPress={() => navigation.navigate(tab.route)}
+        activeOpacity={0.7}
+      >
+        <Image 
+          source={tab.icon} 
+          style={[styles.icon, { tintColor: isActive ? '#000' : '#333' }]} 
+        />
+        <Text style={[styles.text, { color: isActive ? '#000' : '#333' }]}>
+          {tab.label}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
-    <>
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={[styles.tabs, { opacity: route.name == 'Home' ? 1 : 0.5 }]}
-          onPress={() => navigation.navigate('Home')}>
-          {/* <EventMenuSvg style={{ alignSelf: 'center' }} /> */}
-          <Image source={require('../../assets/images/homeicon.png')} style={{ alignSelf: 'center', width: 30, height: 30 }} />
-          <Text style={styles.text}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tabs, { opacity: route.name == 'ConnectMain' ? 1 : 0.5 }]}
-          onPress={() => navigation.navigate('ConnectMain')}>
-          {/* <MapsMenuSvg style={{ alignSelf: 'center' }} /> */}
-          <Image source={require('../../assets/images/networkicon.png')} style={{ alignSelf: 'center', width: 30, height: 30 }} />
-          <Text style={styles.text}>Network</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity
-        style={[styles.tabs2, { opacity: route.name == 'ShowQr' ? 0.1 : 0.5 }]}
-        onPress={() => navigation.navigate('ShowQr')}>
-        <MapsMenuSvg style={{ alignSelf: 'center'}} />
-        <Text style={styles.text}>Show QR</Text>
-      </TouchableOpacity> */}
-        <TouchableOpacity
-          style={[styles.tabs, { opacity: route.name == 'Map' ? 1 : 0.5 }]}
-          onPress={() => navigation.navigate('Map')}>
-          {/* <MapsMenuSvg style={{ alignSelf: 'center' }} /> */}
-          <Image source={require('../../assets/images/mapicon.png')} style={{ alignSelf: 'center', width: 30, height: 30 }} />
-          <Text style={styles.text}>Maps</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tabs, { opacity: route.name == 'More' ? 1 : 0.5 }]}
-          onPress={() => navigation.navigate('More')}>
-          {/* <MoreMenuSvg style={{ alignSelf: 'center' }} /> */}
-          <Image source={require('../../assets/images/moreicon.png')} style={{ alignSelf: 'center', width: 28, height: 28 }} />
-          <Text style={styles.text}>More</Text>
-        </TouchableOpacity>
-      </View>
-    </>
+    <View style={styles.container}>
+      {tabs.map(renderTab)}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  // containerx: {
-  //   flexDirection: 'row',
-  //   backgroundColor: 'transparent',
-  //   position: 'relative',
-  // },
   container: {
     flexDirection: 'row',
     width: '94%',
-    height: 80,
-    paddingHorizontal: 42,
-    justifyContent: 'space-between',
-    // backgroundColor: "hsla(0, 0.00%, 100.00%, 0.05)", // Semi-transparent background
-    backgroundColor: "#382ad5", // Semi-transparent background
-    padding: 12,
-    // borderColor: '#ffffff',
+    height: 70,
+    justifyContent: 'space-around',
+    backgroundColor: '#FED606',
     position: 'absolute',
-    borderRadius: 50,
-    bottom: 0,
-    margin: '3%',
+    borderRadius: 25,
+    bottom: 20,
+    marginHorizontal: '3%',
+    paddingVertical: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 8,
   },
-  tabs: {
-    alignSelf: 'center',
-  },
-  tabs2: {
-    alignSelf: 'center',
-    backgroundColor: '#ffffff',
-    transform: [
-      { scale: 1.1 }
-    ],
-    borderRadius: 5,
-    padding: 5
-  },
-  text: {
-    color: '#fff',
-    fontSize: 12,
-    // lineHeight: 12,
-    paddingTop: 4,
-    fontFamily: 'Proxima',
+  tab: {
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 16,
+    minWidth: 60,
+  },
+  activeTab: {
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginBottom: 2,
+  },
+  text: {
+    fontSize: 11,
+    fontFamily: 'Proxima',
+    fontWeight: '500',
+    textAlign: 'center',
   },
 });

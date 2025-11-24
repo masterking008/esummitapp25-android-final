@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   resend: {
     fontSize: 15,
     lineHeight: 18,
-    color: '#4E8FB4',
+    color: '#FFE100',
     textAlign: 'right',
     paddingRight: 10,
     paddingTop: 10,

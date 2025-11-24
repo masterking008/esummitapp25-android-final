@@ -149,7 +149,7 @@ export const ConnectMain = () => {
           {isLoading ? (
             <ActivityIndicator
               animating={true}
-              color="#4E8FB4"
+              color="#FFE100"
               size="large"
               style={{ marginTop: 20 }}
             />
@@ -239,14 +239,14 @@ const styles = StyleSheet.create({
   },
   profileIcon: {
     borderRadius: 50, 
-    backgroundColor: '#6C24D3',
+    backgroundColor: '#FFE100',
     width: 40,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center'
   },
   daybutton: {
-    backgroundColor: '#382ad3',
+    backgroundColor: '#FFE100',
     color: '#ffffff',
     width: 70,
     marginHorizontal: 5
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   profileiconText: {
     fontFamily: 'ProximaBold',
     textTransform: 'uppercase',
-    color: '#fff',
+    color: '#1e1e1e',
     fontSize: 16,
     padding: 0,
     margin: 0
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
   connectbutton: {
     backgroundColor: '#000000',
     borderWidth: 1,
-    borderColor: '#382ad3'
+    borderColor: '#FFE100'
   },
   connectbtnText: {
     color: '#ffffff',

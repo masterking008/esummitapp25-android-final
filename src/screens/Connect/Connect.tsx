@@ -292,7 +292,7 @@ export const Connect = ({ route }) => {
           {isLoading ? (
             <ActivityIndicator
               animating={true}
-              color="#4E8FB4"
+              color="#FFE100"
               size="large"
               style={{ marginTop: 20 }}
             />
@@ -664,15 +664,15 @@ const styles = StyleSheet.create({
   button: {
     margin: 5,
     borderWidth: 2,
-    borderColor: '#382ad3',
+    borderColor: '#FFE100',
     borderRadius: 20,
     paddingHorizontal: 10
   },
   buttonfilled: {
     margin: 5,
     borderWidth: 2,
-    backgroundColor: '#382ad3',
-    borderColor: '#382ad3',
+    backgroundColor: '#FFE100',
+    borderColor: '#FFE100',
     borderRadius: 20,
     paddingHorizontal: 10
   },

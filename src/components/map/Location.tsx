@@ -25,7 +25,7 @@ export const Location = (props: ILocationProps) => {
 
         <View
           style={styles.container} >
-          <Text style={styles.name}>{props.name.length > 12 ? `${props.name.slice(0, 12)}...` : props.name}</Text>
+          <Text style={styles.name}>{props.name.length > 11 ? `${props.name.slice(0, 11)}...` : props.name}</Text>
           <Image
             // source={require('../../assets/images/building.png')}
             source={{ uri: props.image }}
@@ -47,12 +47,11 @@ export const Location = (props: ILocationProps) => {
 const styles = StyleSheet.create({
   container: {
     aspectRatio: 1.13,
-    width: (Dimensions.get('window').width - 80) / 2,    // Subtract padding/margin and divide by 2 for 2 columns
-    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.05)", // Semi-transparent background
+    width: (Dimensions.get('window').width - 60) / 2,
+    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.05)",
     borderWidth: 0.5,
-    borderColor: "hsla(0, 0.00%, 100.00%, 0.1)", // Semi-transparent background
-    marginHorizontal: 15,
-    marginVertical: 15,
+    borderColor: "hsla(0, 0.00%, 100.00%, 0.1)",
+    margin: 10,
     borderRadius: 25,
     padding: 20,
     overflow: 'hidden',

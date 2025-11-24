@@ -189,9 +189,9 @@ const styles = StyleSheet.create({
   },
   checkedcont: {
     textAlign: 'center',
-    borderColor: '#382ad3',
+    borderColor: '#FFE100',
     borderWidth: 2,
-    backgroundColor: '#382ad3',
+    backgroundColor: '#FFE100',
     padding: 10,
     margin: 3,
     flexDirection: 'row',

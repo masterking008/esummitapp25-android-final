@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   },
   flag: {
     width: 80,
-    backgroundColor: '#5EBCF1',
+    backgroundColor: '#FFE100',
     paddingVertical: 4,
     paddingHorizontal: 6,
     borderRadius: 4,
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     // paddingVertical: 1,
     height: 30,
     borderRadius: 20,
-    backgroundColor: '#382ad3',
+    backgroundColor: '#FFE100',
     color: '#ffffff',
     width: '100%'
   },

@@ -271,22 +271,7 @@ export const Home = () => {
             </Modal>
           </Portal>
 
-          {/* <View style={styles.header}>
-            <View style={styles.headcont}>
-              <View style={styles.profileIcon}>
-                <Button
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  onPress={() => navigation.navigate("Profile" as never)}
-                >
-                  <Text style={styles.profileiconText}>{name[0]}</Text>
-                </Button>
-              </View>
-            </View>
-          </View> */}
+          <Navbar navigation={navigation} />
 
 
           <ScrollView
@@ -376,7 +361,7 @@ export const Home = () => {
                       styles.daybutton,
                       {
                         backgroundColor:
-                          filterDay.length === 2 ? "#382ad3" : "hsla(0, 0.00%, 100.00%, 0.05)",
+                          filterDay.length === 2 ? "#FFE100" : "hsla(0, 0.00%, 100.00%, 0.05)",
                       },
                     ]}
                     onPress={() => setFilterDay(["1", "2"])}
@@ -389,7 +374,7 @@ export const Home = () => {
                       {
                         backgroundColor:
                           filterDay.includes("1") && filterDay.length === 1
-                            ? "#382ad3"
+                            ? "#FFE100"
                             : "hsla(0, 0.00%, 100.00%, 0.05)",
                       },
                     ]}
@@ -403,7 +388,7 @@ export const Home = () => {
                       {
                         backgroundColor:
                           filterDay.includes("2") && filterDay.length === 1
-                            ? "#382ad3"
+                            ? "#FFE100"
                             : "hsla(0, 0.00%, 100.00%, 0.05)",
                       },
                     ]}
@@ -673,20 +658,7 @@ export const Home = () => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    position: 'absolute',
-    top: 0,
-    flexDirection: 'row',
-    paddingVertical: 20,
-    // backgroundColor: "red",
-    width: '100%',
-    zIndex: 10,
-    // marginTop: 20,
-  },
-  headcont: {
-    flexDirection: "row",
-    paddingHorizontal: 20,
-  },
+
   headcont2: {
     width: '69%',
     flexDirection: "row",
@@ -709,7 +681,7 @@ const styles = StyleSheet.create({
   },
   profileIcon: {
     borderRadius: 50,
-    backgroundColor: '#6C24D3',
+    backgroundColor: '#FFE100',
     width: 40,
     aspectRatio: 1,
     justifyContent: 'center',
@@ -722,7 +694,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   daybutton: {
-    backgroundColor: "#382ad3",
+    backgroundColor: "#FFE100",
     color: "#ffffff",
     width: 70,
     marginHorizontal: 5,
@@ -806,6 +778,7 @@ const styles = StyleSheet.create({
     // fontFamily: 'Poppins',
     fontSize: 14,
     textTransform: "uppercase",
+    color: "#000",
   },
   fab: {
     position: "absolute",
@@ -859,7 +832,7 @@ const styles = StyleSheet.create({
     width: "30%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#382ad3",
+    backgroundColor: "#FFE100",
     borderRadius: 12,
     aspectRatio: 2,
   },

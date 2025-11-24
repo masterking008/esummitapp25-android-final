@@ -5,6 +5,7 @@ import { Image, ImageBackground, Linking, StyleSheet, Text, TouchableOpacity, Vi
 import { LinearGradient } from 'expo-linear-gradient';
 import { Button, Divider, List, Modal, Portal, ActivityIndicator } from 'react-native-paper';
 import { ProfileSection } from '../../components/profile';
+import { Navbar } from '../../components/shared';
 import { useProfileStore } from '../../store/profile-store';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CrossSvg from '../../components/svgs/cross';
@@ -14,8 +15,11 @@ import { useFlowStore } from '../../store/flow-store';
 
 export const Profile = () => {
   const [visible, setVisible] = useState(false);
+  const [logoutVisible, setLogoutVisible] = useState(false);
 
   const hideModal = () => setVisible(false);
+  const showLogoutModal = () => setLogoutVisible(true);
+  const hideLogoutModal = () => setLogoutVisible(false);
 
   const name = useProfileStore(state => state.name);
   const email = useProfileStore(state => state.email);
@@ -24,15 +28,23 @@ export const Profile = () => {
   const qrcode = useProfileStore(state => state.qrcode);
   const setFlow = useFlowStore(state => state.setFlow);
   const isAdmin = useProfileStore(state => state.isAdmin);
+  const reset = useProfileStore(state => state.reset);
 
   const isguest = useProfileStore(state => state.isGuest)
 
   const navigation = useNavigation();
 
   const handleLogout = async () => {
-    setFlow(FLOW_STAGES.AUTH);
-    await AsyncStorage.removeItem('Esummit24email');
-    navigation.navigate('SignIn' as never);
+    try {
+      setFlow(FLOW_STAGES.AUTH);
+      reset();
+      await AsyncStorage.removeItem('Esummit24email');
+      hideLogoutModal();
+      navigation.navigate('SignIn' as never);
+    } catch (error) {
+      console.error('Logout error:', error);
+      hideLogoutModal();
+    }
   };
 
   return (
@@ -47,63 +59,75 @@ export const Profile = () => {
         //   useAngle
         //   angle={-128.06}
         style={styles.container}>
+        <Navbar navigation={navigation} />
         <Portal>
           <Modal
             visible={visible}
             onDismiss={hideModal}
-            contentContainerStyle={styles.containerStyle}>
-            <View
-            // useAngle
-            // angle={-128.06}
-            >
-              <TouchableOpacity
-                style={{
-                  alignItems: 'flex-end',
-                  paddingRight: 10,
-                  paddingVertical: 5,
-                }}
-                onPress={hideModal}>
-                <CrossSvg />
-              </TouchableOpacity>
+            contentContainerStyle={styles.qrModalStyle}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={hideModal}>
+              <CrossSvg />
+            </TouchableOpacity>
+            
+            <View style={styles.qrContainer}>
               {qrcode ? (
                 <>
                   <ActivityIndicator
                     animating={true}
-                    color="#4E8FB4"
+                    color="#FFE100"
                     size="large"
-                    style={{ marginTop: 20 }}
+                    style={{ marginBottom: 20 }}
                   />
-                  <Image
-                    source={{
-                      uri: qrcode,
-                    }}
-                    style={styles.qrImage}
-                  />
+                  <Image source={{ uri: qrcode }} style={styles.qrImage} />
                 </>
               ) : (
                 <>
                   <ActivityIndicator
                     animating={true}
-                    color="#4E8FB4"
+                    color="#FFE100"
                     size="large"
-                    style={{ marginTop: 20 }}
+                    style={{ marginBottom: 20 }}
                   />
-                  <View
-                    style={{
-                      backgroundColor: 'white',
-                      alignItems: 'center',
-                      marginHorizontal: 25,
-                      paddingVertical: 30,
-                      marginTop: 10,
-                    }}>
-                    <QRCode value={email} size={150} />
+                  <View style={styles.qrCodeWrapper}>
+                    <QRCode value={email} size={180} />
                   </View>
                 </>
               )}
+            </View>
 
-              <Text style={styles.qrText}>
-                Scan this QR code at the registration desk to get your pass.
-              </Text>
+            <Text style={styles.qrText}>
+              Scan this QR code at the registration desk to get your pass.
+            </Text>
+          </Modal>
+
+          <Modal
+            visible={logoutVisible}
+            onDismiss={hideLogoutModal}
+            contentContainerStyle={styles.logoutModalStyle}
+          >
+            <Text style={styles.modalTitle}>LOGOUT</Text>
+            <Text style={styles.modalMessage}>
+              Are you sure you want to logout?
+            </Text>
+            <View style={styles.modalActions}>
+              <Button
+                mode="outlined"
+                onPress={hideLogoutModal}
+                style={styles.cancelButton}
+                labelStyle={styles.cancelButtonText}
+              >
+                CANCEL
+              </Button>
+              <Button
+                mode="contained"
+                onPress={handleLogout}
+                style={styles.logoutButton}
+                labelStyle={styles.logoutButtonText}
+              >
+                LOGOUT
+              </Button>
             </View>
           </Modal>
         </Portal>
@@ -143,34 +167,19 @@ export const Profile = () => {
       )} */}
 
         {pass === null || pass === undefined || isguest ? (
-          <>
-            <TouchableOpacity onPress={() => Linking.openURL('https://ecell.in/esummit/pass')}>
-              <View style={styles.passContainer}>
-                <View style={styles.passContent2}>
-                  <Image
-                    source={require('../../assets/images/gold.png')}
-                    style={styles.icon}
-                  />
-                  <Text style={[styles.boldSmallText, { color: "#E5BE52" }]}> Buy VIP Pass</Text>
-                </View>
-              </View>
+          <View style={styles.getPassContainer}>
+            <TouchableOpacity
+              style={styles.getPassButton}
+              onPress={() => Linking.openURL('https://ecell.in/esummit/pass')}
+            >
+              <Image
+                source={require('../../assets/images/gold.png')}
+                style={styles.passIcon}
+              />
+              <Text style={styles.getPassText}>Get Pass</Text>
             </TouchableOpacity>
-          </>
-        ) : (
-          <>
-            {/* <TouchableOpacity onPress={() => Linking.openURL('https://ecell.in/esummit/pass')}>
-              <View style={styles.passContainer}>
-                <View style={styles.passContent2}>
-                  <Image
-                    source={require('../../assets/images/gold.png')}
-                    style={styles.icon}
-                  />
-                  <Text style={[styles.boldSmallText, { color: "#E5BE52" }]}> Upgrade your Pass </Text>
-                </View>
-              </View>
-            </TouchableOpacity> */}
-          </>
-        )}
+          </View>
+        ) : null}
 
         <Text style={styles.title}>More</Text>
 
@@ -237,15 +246,15 @@ export const Profile = () => {
         ) : null}
 
         <Button
-          onPress={handleLogout}
+          onPress={showLogoutModal}
           mode={'outlined'}
-          textColor={'#000000'}
+          textColor={'#FFFFFF'}
           style={styles.logout}>
           <Image
             source={require('../../assets/images/logout.png')}
             style={styles.icon}
           />
-          <Text style={styles.boldSmallText}> Logout</Text>
+          <Text style={[styles.boldSmallText, { textAlign: 'center' }]}> LOGOUT</Text>
         </Button>
       </View>
     </ImageBackground>
@@ -276,17 +285,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  passContent2: {
-    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.05)", // Semi-transparent background
-    width: 200,
-    borderColor: '#E5BE52',
-    borderWidth: 1,
-    borderRadius: 20,
-    padding: 10,
-    flexDirection: 'row',
+  getPassContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginVertical: 15,
+  },
+  getPassButton: {
+    backgroundColor: '#05020E',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 15,
+    flexDirection: 'row',
+    borderWidth: 2,
+    borderColor: '#E5BE52',
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+  passIcon: {
+    height: 20,
+    width: 20,
+    marginRight: 5,
+  },
+  getPassText: {
+    color: '#E5BE52',
+    fontFamily: 'ProximaBold',
+    fontSize: 14,
   },
   passContent: {
     flexDirection: 'row',
@@ -307,7 +330,7 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   boldSmallText: {
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: 'ProximaBold',
     // fontWeight: 'bold',
     lineHeight: 22,
@@ -321,8 +344,8 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   icon: {
-    height: 24,
-    width: 24,
+    height: 20,
+    width: 20,
   },
   logout: {
     backgroundColor: "hsla(0, 0.00%, 100.00%, 0.05)", // Semi-transparent background
@@ -336,11 +359,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 1,
   },
-  containerStyle: {
-    backgroundColor: '#000000',
-    width: 300,
-    alignSelf: 'center',
-    padding: 10,
+  qrModalStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.95)',
+    marginHorizontal: 20,
+    borderRadius: 15,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  closeButton: {
+    alignSelf: 'flex-end',
+    padding: 5,
+  },
+  qrContainer: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  qrCodeWrapper: {
+    backgroundColor: 'white',
+    padding: 20,
     borderRadius: 10,
   },
   modalBack: {
@@ -368,5 +405,54 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     backgroundColor: '#3D3C3C',
+  },
+  logoutModalStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.95)',
+    marginHorizontal: 30,
+    borderRadius: 15,
+    padding: 25,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 77, 77, 0.3)',
+  },
+  modalTitle: {
+    color: '#FFFFFF',
+    fontFamily: 'ProximaBold',
+    fontSize: 22,
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  modalMessage: {
+    color: '#CCCCCC',
+    fontFamily: 'Proxima',
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 25,
+  },
+  modalActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  cancelButton: {
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderWidth: 1,
+    flex: 1,
+    marginRight: 10,
+    borderRadius: 8,
+  },
+  logoutButton: {
+    backgroundColor: '#FF4D4D',
+    flex: 1,
+    marginLeft: 10,
+    borderRadius: 8,
+  },
+  cancelButtonText: {
+    color: '#FFFFFF',
+    fontFamily: 'ProximaBold',
+    fontSize: 14,
+  },
+  logoutButtonText: {
+    color: '#FFFFFF',
+    fontFamily: 'ProximaBold',
+    fontSize: 14,
   },
 });

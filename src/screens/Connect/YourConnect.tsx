@@ -224,7 +224,7 @@ export const YourConnect = () => {
           {isLoading ? (
             <ActivityIndicator
               animating={true}
-              color="#4E8FB4"
+              color="#FFE100"
               size="large"
               style={{ marginTop: 20 }}
             />
@@ -235,21 +235,21 @@ export const YourConnect = () => {
                   <View style={styles.headcont}>
                     <Button style={[styles.daybutton, {
                       backgroundColor: page === 'accepted'
-                        ? '#382ad3'
+                        ? '#FFE100'
                         : '#232323',
                     },]} onPress={() => setpage('accepted')}>
                       <Text style={styles.daybuttonText}>Connections</Text>
                     </Button>
                     <Button style={[styles.daybutton, {
                       backgroundColor: page === 'sent'
-                        ? '#382ad3'
+                        ? '#FFE100'
                         : '#232323',
                     },]} onPress={() => setpage('sent')}>
                       <Text style={styles.daybuttonText}>Sent</Text>
                     </Button>
                     <Button style={[styles.daybutton, {
                       backgroundColor: page === 'received'
-                        ? '#382ad3'
+                        ? '#FFE100'
                         : '#232323',
                     },]} onPress={() => setpage('received')}>
                       <Text style={styles.daybuttonText}>Received</Text>
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   daybutton: {
-    backgroundColor: '#382ad3',
+    backgroundColor: '#FFE100',
     color: '#ffffff',
     width: '30%',
     marginHorizontal: 5
