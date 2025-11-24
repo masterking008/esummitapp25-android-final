@@ -8,7 +8,8 @@ import {
   RefreshControl,
   Dimensions,
   Image,
-  TextInput
+  TextInput,
+  ImageBackground
 } from 'react-native';
 // import { ScrollView, NativeViewGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ScrollView } from 'react-native';
@@ -108,10 +109,10 @@ export const ConnectMain = () => {
 
   return (
         <>
-      <View
-        // useAngle
-        // angle={-128.06}
-        style={styles.container}>
+      <ImageBackground
+        source={require('../../assets/images/homeBg.png')}
+        style={styles.container}
+        resizeMode="cover">
           <View style={styles.header}>
               <View style={styles.headcont}>
                 <View style={styles.profileIcon}>
@@ -157,11 +158,11 @@ export const ConnectMain = () => {
             <>
             {/* <Button title='My Connections' onPress={() => handleNavigate()}/>
             <Button title='Edit Profile' onPress={() => navigation.navigate('EditProfile' as never)}/> */}
-            <Text style={{color: '#FFFFFF', fontSize: 20, marginLeft: 25, fontFamily: 'ProximaBold', marginBottom: 20}}>People with Similar Interests</Text>
-            <View style={[styles.section, {paddingBottom: 100}]}>
+            <Text style={styles.heading}>People with Similar Interests</Text>
+            <View style={styles.section}>
               {Connects === null || Connects === undefined? (
                 <>
-                <Text style={{color: '#FFFFFF', fontSize: 15, marginLeft: 25, fontFamily: 'ProximaBold', marginBottom: 20}}>You are a guest user. Sign In with registered email to access to networking feature</Text>
+                <Text style={styles.subheading}>You are a guest user. Sign In with registered email to access to networking feature</Text>
                 </>
               ):(
                 filterConnect(
@@ -180,7 +181,7 @@ export const ConnectMain = () => {
             </>
           )}
         </ScrollView>
-      </View>
+      </ImageBackground>
       {/* <View style={styles.fab}>
         <TouchableOpacity
           style={[
@@ -240,10 +241,18 @@ const styles = StyleSheet.create({
   profileIcon: {
     borderRadius: 50, 
     backgroundColor: '#FFE100',
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    shadowColor: '#FFE100',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 4,
   },
   daybutton: {
     backgroundColor: '#FFE100',
@@ -268,32 +277,52 @@ const styles = StyleSheet.create({
   },
   connectbox: {},
   connectbutton: {
-    backgroundColor: '#000000',
-    borderWidth: 1,
-    borderColor: '#FFE100'
+    backgroundColor: '#1e1e1e',
+    borderWidth: 2,
+    borderColor: '#FFE100',
+    borderRadius: 20,
+    shadowColor: '#FFE100',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   connectbtnText: {
-    color: '#ffffff',
-    fontSize: 10,
-    paddingHorizontal: 20,
-    fontFamily: 'Proxima'
+    fontFamily: 'Proxima',
+    color: '#FFE100',
+    fontSize: 11,
+    paddingHorizontal: 16,
+    fontWeight: '600',
+    letterSpacing: 0.3,
   },
     input: {
-        backgroundColor: '#161616',
-        // fontFamily: 'Poppins',
+        backgroundColor: '#1e1e1e',
         color: '#FFFFFF',
         fontSize: 14,
-        // lineHeight: 17,
         marginTop: 2,
-        paddingHorizontal: 15,
+        paddingHorizontal: 18,
         width: '100%',
-        borderRadius: 20,
-        height: '100%'
+        borderRadius: 24,
+        height: '100%',
+        borderWidth: 1,
+        borderColor: '#FFE100',
+        shadowColor: '#FFE100',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
       },
   container: {
-    paddingVertical: 5,
+    // paddingVertical: 5,
     height: '100%',
-    backgroundColor: '#121212'
+    flex: 1,
+    // backgroundColor: '#05020E',
   },
   containerStyle: {
     backgroundColor: '#BBD4E2',
@@ -311,10 +340,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   heading: {
-    // // fontFamily: 'Poppins',
-    fontSize: 20,
-    lineHeight: 24,
+    fontFamily: 'ProximaBold',
+    fontSize: 23,
+    lineHeight: 28,
     color: '#FFFFFF',
+    textTransform: 'uppercase',
+    marginLeft: 25,
+    marginBottom: 20,
+  },
+  subheading: {
+    fontFamily: 'Proxima',
+    fontSize: 15,
+    color: '#A2A2A2',
+    marginLeft: 25,
+    marginBottom: 20,
   },
   pagerView: {
     height: 180,

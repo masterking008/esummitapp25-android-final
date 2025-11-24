@@ -126,7 +126,7 @@ export const Home = () => {
       }
     });
 
-    EventData?.data?.highlights.forEach((item) => {
+    EventData?.data?.highlights?.forEach((item) => {
       if (!categories.includes(item.category)) {
         setCategories([...categories, item.category]);
       }
@@ -333,14 +333,14 @@ export const Home = () => {
                     }
                     ref={pagerRef}
                   >
-                    {EventData?.data?.highlights.map((item, index) => (
+                    {EventData?.data?.highlights?.map((item, index) => (
                       <View key={index}>
                         <Highlight
                           url={item.image}
                           alt={item.name}
                           id={item.id}
                           index={index}
-                          length={EventData?.data.highlights.length}
+                          length={EventData?.data?.highlights?.length || 0}
                           venue={item.venue.name}
                           day={item.day}
                           startTime={item.startTime}
@@ -351,7 +351,7 @@ export const Home = () => {
                           navigation={navigation}
                         />
                       </View>
-                    ))}
+                    )) || []}
                   </PagerView>
                 </View>
 
@@ -366,7 +366,7 @@ export const Home = () => {
                     ]}
                     onPress={() => setFilterDay(["1", "2"])}
                   >
-                    <Text style={styles.daybuttonText}>ALL</Text>
+                    <Text style={[styles.daybuttonText, { color: filterDay.length === 2 ? "#000000" : "#ffffff" }]}>ALL</Text>
                   </Button>
                   <Button
                     style={[
@@ -380,7 +380,7 @@ export const Home = () => {
                     ]}
                     onPress={() => setFilterDay(["1"])}
                   >
-                    <Text style={styles.daybuttonText}>DAY 1</Text>
+                    <Text style={[styles.daybuttonText, { color: filterDay.includes("1") && filterDay.length === 1 ? "#000000" : "#ffffff" }]}>DAY 1</Text>
                   </Button>
                   <Button
                     style={[
@@ -394,7 +394,7 @@ export const Home = () => {
                     ]}
                     onPress={() => setFilterDay(["2"])}
                   >
-                    <Text style={styles.daybuttonText}>DAY 2</Text>
+                    <Text style={[styles.daybuttonText, { color: filterDay.includes("2") && filterDay.length === 1 ? "#000000" : "#ffffff" }]}>DAY 2</Text>
                   </Button>
                 </View>
 
@@ -412,7 +412,7 @@ export const Home = () => {
                       source={require("../../assets/images/oaticon.png")}
                       style={{ width: 40, height: 40 }}
                     /> */}
-                      <Text style={styles.iconText}>OAT Event</Text>
+                      <Text style={[styles.iconText, { color: filterCategory === "oat" ? "#000000" : "#ffffff" }]}>OAT Event</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => togglefilter("ltpcsa")}
@@ -424,7 +424,7 @@ export const Home = () => {
                       source={require("../../assets/images/pcsaicon.png")}
                       style={{ width: 40, height: 40 }}
                     /> */}
-                      <Text style={styles.iconText}>LT-PCSA</Text>
+                      <Text style={[styles.iconText, { color: filterCategory === "ltpcsa" ? "#000000" : "#ffffff" }]}>LT-PCSA</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => togglefilter("lhc")}
@@ -435,7 +435,7 @@ export const Home = () => {
                       {/* <Image
                       source={require("../../assets/images/workshop.png")}
                     /> */}
-                      <Text style={styles.iconText}>LHC Sessions</Text>
+                      <Text style={[styles.iconText, { color: filterCategory === "lhc" ? "#000000" : "#ffffff" }]}>LHC Sessions</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => togglefilter("convo")}
@@ -447,7 +447,7 @@ export const Home = () => {
                       source={require("../../assets/images/convoicon.png")}
                       style={{ width: 40, height: 40 }}
                     /> */}
-                      <Text style={styles.iconText}>Convocation Hall</Text>
+                      <Text style={[styles.iconText, { color: filterCategory === "convo" ? "#000000" : "#ffffff" }]}>Convocation Hall</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => togglefilter("startup events")}
@@ -460,7 +460,7 @@ export const Home = () => {
                       {/* <Image
                       source={require("../../assets/images/startupicon.png")}
                     /> */}
-                      <Text style={styles.iconText}>Startup Events</Text>
+                      <Text style={[styles.iconText, { color: filterCategory === "startup events" ? "#000000" : "#ffffff" }]}>Startup Events</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() => togglefilter("student events")}
@@ -473,7 +473,7 @@ export const Home = () => {
                       {/* <Image
                       source={require("../../assets/images/studenticon.png")}
                     /> */}
-                      <Text style={styles.iconText}>Student Events</Text>
+                      <Text style={[styles.iconText, { color: filterCategory === "student events" ? "#000000" : "#ffffff" }]}>Student Events</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -840,5 +840,8 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 12,
     marginTop: 2,
+    fontFamily: "ProximaBold",
+    textTransform: "uppercase",
+    textAlign: "center",
   },
 });

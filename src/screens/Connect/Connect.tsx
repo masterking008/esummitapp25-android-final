@@ -10,6 +10,7 @@ import {
   TextInput,
   Image,
   Linking,
+  ImageBackground,
 } from "react-native";
 // import { ScrollView, NativeViewGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ScrollView } from "react-native";
@@ -193,10 +194,10 @@ export const Connect = ({ route }) => {
 
   return (
     <>
-      <View
-        // useAngle
-        // angle={-128.06}
+      <ImageBackground
+        source={require("../../assets/images/homeBg.png")}
         style={styles.container}
+        resizeMode="cover"
       >
         <Portal>
           <Modal
@@ -321,17 +322,17 @@ export const Connect = ({ route }) => {
                 </View>
                 <View style={styles.details}>
                   {Profile?.name === null || Profile?.name === undefined ? (
-                    <Text style={{ color: "#ffffff", fontFamily: 'ProximaBold', fontSize: 20, margin: 5 }}>Field is empty</Text>
+                    <Text style={styles.nameText}>Field is empty</Text>
                   ) : (
-                    <Text style={{ color: "#ffffff", fontFamily: 'ProximaBold', fontSize: 20, margin: 5 }}>{Profile?.name}</Text>
+                    <Text style={styles.nameText}>{Profile?.name}</Text>
                   )}
 
                   {Profile?.company_name === null || Profile?.company_name === undefined ? (
-                    <Text style={{ color: "#ffffff", fontFamily: 'Proxima', fontSize: 15, margin: 5 }}>
+                    <Text style={styles.companyText}>
                       Field is empty
                     </Text>
                   ) : (
-                    <Text style={{ color: "#ffffff", fontFamily: 'Proxima', fontSize: 15, margin: 5 }}>
+                    <Text style={styles.companyText}>
                       {Profile?.company_name}
                     </Text>
                   )}
@@ -345,7 +346,7 @@ export const Connect = ({ route }) => {
                   <View style={styles.actions}>
                     {ProfileData?.isconnected ? (
                       <Button style={styles.button} onPress={showModal}>
-                        <Text>Disconnect</Text>
+                        <Text style={styles.buttonText}>Disconnect</Text>
                       </Button>
                     ) : ProfileData?.status ? (
                       ProfileData?.isreceived ? (
@@ -374,11 +375,11 @@ export const Connect = ({ route }) => {
                     )}
                     {ProfileData?.isconnected ? (
                       <Button style={styles.buttonfilled} onPress={() => { Linking.openURL('https://wa.me/91' + String(Profile?.contact)) }}>
-                        <Text style={styles.buttonText}>Message</Text>
+                        <Text style={styles.buttonFilledText}>Message</Text>
                       </Button>
                     ) : (
                       <Button style={styles.buttonfilled} onPress={() => { toast.show('Please connect to unlock message') }}>
-                        <Text style={styles.buttonText}>Message</Text>
+                        <Text style={styles.buttonFilledText}>Message</Text>
                       </Button>
                     )}
                   </View>
@@ -528,7 +529,7 @@ export const Connect = ({ route }) => {
             </>
           )}
         </ScrollView>
-      </View>
+      </ImageBackground>
       <Footer navigation={navigation} />
     </>
   );
@@ -548,14 +549,10 @@ const styles = StyleSheet.create({
   },
   container: {
     height: "100%",
-    backgroundColor: "#121212",
-    // paddingTop: 50,
+    flex: 1,
   },
   containerx: {
-    // height: "100%",
-    backgroundColor: "#121212",
-    // paddingTop: 20,
-    // paddingBottom: 400,
+    // backgroundColor: "#05020E",
   },
   containerStyle: {
     backgroundColor: "#BBD4E2",
@@ -574,19 +571,43 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: 'ProximaBold',
-    fontSize: 20,
-    // lineHeight: 24,
+    fontSize: 23,
+    lineHeight: 28,
     color: "#FFFFFF",
+    textTransform: "uppercase",
     marginBottom: 5
   },
-  para: {
-    fontSize: 12,
+  nameText: {
+    fontFamily: 'ProximaBold',
+    color: "#ffffff",
+    fontSize: 20,
+    margin: 5
+  },
+  companyText: {
     fontFamily: 'Proxima',
-    borderRadius: 10,
-    backgroundColor: '#232323',
-    padding: 10,
-    marginVertical: 10,
-    color: '#ffffff'
+    color: "#ffffff",
+    fontSize: 15,
+    margin: 5
+  },
+  para: {
+    fontFamily: 'Proxima',
+    fontSize: 13,
+    borderRadius: 12,
+    backgroundColor: '#1e1e1e',
+    borderColor: '#FFE100',
+    borderWidth: 1,
+    padding: 16,
+    marginVertical: 12,
+    color: '#ffffff',
+    lineHeight: 20,
+    shadowColor: '#FFE100',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   pagerView: {
     height: 180,
@@ -628,14 +649,25 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   interestbox: {
-    backgroundColor: '#ffffff',
-    borderRadius: 20,
-    marginHorizontal: 5,
-    marginVertical: 5,
-    color: '#000000',
     fontFamily: 'Proxima',
-    padding: 5,
-    fontSize: 10
+    backgroundColor: '#FFE100',
+    borderRadius: 16,
+    marginHorizontal: 6,
+    marginVertical: 6,
+    color: '#1e1e1e',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    fontSize: 11,
+    fontWeight: '600',
+    letterSpacing: 0.2,
+    shadowColor: '#FFE100',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 2,
   },
   actions: {
     width: '80%',
@@ -662,24 +694,51 @@ const styles = StyleSheet.create({
     backgroundColor: "#161616",
   },
   button: {
-    margin: 5,
+    margin: 8,
     borderWidth: 2,
     borderColor: '#FFE100',
-    borderRadius: 20,
-    paddingHorizontal: 10
+    borderRadius: 24,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    shadowColor: '#FFE100',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   buttonfilled: {
-    margin: 5,
+    margin: 8,
     borderWidth: 2,
     backgroundColor: '#FFE100',
     borderColor: '#FFE100',
-    borderRadius: 20,
-    paddingHorizontal: 10
+    borderRadius: 24,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    shadowColor: '#FFE100',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
   },
   buttonText: {
     fontFamily: 'Proxima',
-    color: '#ffffff',
-    fontSize: 12
+    color: '#FFE100',
+    fontSize: 13,
+    fontWeight: '600',
+    letterSpacing: 0.3,
+  },
+  buttonFilledText: {
+    fontFamily: 'Proxima',
+    color: '#1e1e1e',
+    fontSize: 13,
+    fontWeight: '600',
+    letterSpacing: 0.3,
   },
   fabButton: {
     backgroundColor: "#46B1EE",
@@ -711,6 +770,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   persontype: {
+    fontFamily: 'Proxima',
     color: '#A6CE3B',
     fontSize: 15
   },

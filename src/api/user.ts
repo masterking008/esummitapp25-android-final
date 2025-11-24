@@ -200,7 +200,7 @@ export const sendRequest = async (email: string, id: string | undefined) => {
 
 export const storeExpoToken = async (expotoken: string, email: string) => {
   try {
-    console.log(expotoken);
+    console.log('Storing expo token:', expotoken);
     const response = await fetch(`${PRODUCTION_BASE_URL}/storetoken/`, {
       method: 'POST',
       headers: {
@@ -211,12 +211,18 @@ export const storeExpoToken = async (expotoken: string, email: string) => {
         email: email
       }),
     });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const data = await response.json();
     return data;
   } catch (err) {
+    console.error('Error storing expo token:', err);
     return {
       success: false,
-      error: err,
+      error: err instanceof Error ? err.message : 'Unknown error',
     };
   }
 };

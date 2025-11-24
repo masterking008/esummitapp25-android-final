@@ -17,10 +17,10 @@ export const Footer: React.FC<FooterProps> = ({ navigation }) => {
   const route = useRoute();
 
   const tabs: TabItem[] = [
-    { name: 'Home', route: 'Home', icon: require('../../assets/images/homeicon.png'), label: 'Home' },
-    { name: 'ConnectMain', route: 'ConnectMain', icon: require('../../assets/images/networkicon.png'), label: 'Network' },
-    { name: 'Map', route: 'Map', icon: require('../../assets/images/mapicon.png'), label: 'Maps' },
-    { name: 'More', route: 'More', icon: require('../../assets/images/moreicon.png'), label: 'More' },
+    { name: 'Home', route: 'Home', icon: require('../../assets/images/homeicon.png'), label: 'HOME' },
+    { name: 'ConnectMain', route: 'ConnectMain', icon: require('../../assets/images/networkicon.png'), label: 'NETWORK' },
+    { name: 'Map', route: 'Map', icon: require('../../assets/images/mapicon.png'), label: 'MAPS' },
+    { name: 'More', route: 'More', icon: require('../../assets/images/moreicon.png'), label: 'MORE' },
   ];
 
   const renderTab = (tab: TabItem) => {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     backgroundColor: '#FED606',
     position: 'absolute',
-    borderRadius: 25,
+    borderRadius: 60,
     bottom: 20,
     marginHorizontal: '3%',
     paddingVertical: 8,
@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
   tab: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 8,
+    paddingVertical: 10,
     paddingHorizontal: 12,
-    borderRadius: 16,
+    borderRadius: 40,
     minWidth: 60,
   },
   activeTab: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 11,
-    fontFamily: 'Proxima',
+    fontFamily: 'ProximaBold',
     fontWeight: '500',
     textAlign: 'center',
   },

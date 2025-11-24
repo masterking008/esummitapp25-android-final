@@ -40,7 +40,7 @@ export const SignInScreen = () => {
         email: email,
         image: "https://2k21.s3.ap-south-1.amazonaws.com/Ellipse+8.png",
         name: "Admin User",
-        pass: "Not Purchased",
+        pass: "none",
         isSignedIn: true,
         isAdmin: true,
       });
@@ -75,7 +75,7 @@ export const SignInScreen = () => {
   return (
     // <ScrollView>
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#FED606" />
+      {/* <StatusBar barStyle="dark-content" backgroundColor="#FED606" /> */}
       <LinearGradient
         colors={['#FED606', '#161616']}
         start={[0.5, 0]}

@@ -33,7 +33,18 @@ export const AccomodationResult = (props: IAccomodationResultProps) => {
         <ActivityIndicator animating={true} color="#FFE100" size="large" />
       ) : (
         <>
-          {qrCode?.data.isAccomodationBooked ? (
+          {!qrCode?.success ? (
+            <>
+              <Avatar.Icon
+                size={100}
+                icon="alert"
+                style={{ backgroundColor: 'orange' }}
+              />
+              <Text style={{ color: '#FFFFFF', fontSize: 20 }}>
+                {qrCode?.message || 'Error occurred'}
+              </Text>
+            </>
+          ) : qrCode?.data?.isAccomodationBooked ? (
             <>
               <Avatar.Icon
                 size={100}
@@ -58,30 +69,34 @@ export const AccomodationResult = (props: IAccomodationResultProps) => {
       )}
 
       <Text style={{ color: '#FFFFFF', fontSize: 20 }}>{props.email}</Text>
-      <Text style={{ color: '#FFFFFF', fontSize: 20 }}>
-        Accomodation Booked: {qrCode?.data.isAccomodationBooked ? 'YES' : 'NO'}
-      </Text>
-      <Text style={{ color: '#FFFFFF', fontSize: 20 }}>
-        HospitalityKit Recived:
-        {qrCode?.data.isHospitalityKitCollected ? (
-          <Text style={{ color: 'green', fontSize: 20, fontWeight: 'bold' }}>
-            YES
+      {qrCode?.success && (
+        <>
+          <Text style={{ color: '#FFFFFF', fontSize: 20 }}>
+            Accomodation Booked: {qrCode?.data?.isAccomodationBooked ? 'YES' : 'NO'}
           </Text>
-        ) : (
-          <Text style={{ color: 'red', fontSize: 20, fontWeight: 'bold' }}>
-            {' '}
-            NO
+          <Text style={{ color: '#FFFFFF', fontSize: 20 }}>
+            HospitalityKit Recived:
+            {qrCode?.data?.isHospitalityKitCollected ? (
+              <Text style={{ color: 'green', fontSize: 20, fontWeight: 'bold' }}>
+                YES
+              </Text>
+            ) : (
+              <Text style={{ color: 'red', fontSize: 20, fontWeight: 'bold' }}>
+                {' '}
+                NO
+              </Text>
+            )}
           </Text>
-        )}
-      </Text>
+        </>
+      )}
 
       <View style={{ flexDirection: 'row', marginTop: 10 }}>
         <Button mode="contained" onPress={props.close}>
           Cancel
         </Button>
 
-        {!qrCode?.data.isHospitalityKitCollected &&
-          qrCode?.data.isAccomodationBooked && (
+        {qrCode?.success && !qrCode?.data?.isHospitalityKitCollected &&
+          qrCode?.data?.isAccomodationBooked && (
             <Button mode="contained" onPress={handleDistributeKit}>
               Give
             </Button>

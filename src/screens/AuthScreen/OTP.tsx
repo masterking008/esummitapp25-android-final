@@ -46,7 +46,7 @@ export const OTPScreen = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#FED606" />
+      {/* <StatusBar barStyle="dark-content" backgroundColor="#FED606" /> */}
         <LinearGradient
           colors={['#FED606', '#161616']}
           start={[0.5, 0]}

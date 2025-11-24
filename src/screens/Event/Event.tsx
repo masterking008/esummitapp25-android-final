@@ -270,8 +270,8 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    top: 50,
-    left: 20,
+    top: 20,
+    left: 15,
     zIndex: 10,
   },
   profileIcon: {

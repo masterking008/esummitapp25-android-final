@@ -224,16 +224,16 @@ export const SearchConnect = ({ route }) => {
             />
           ) : (
             <>
-            <Text style={{color: '#FFFFFF', fontSize: 20, marginLeft: 25}}>Profile Page</Text>
+            <Text style={styles.heading}>Profile Page</Text>
             <View style={styles.section}>
                 {/* <View style={styles.card}> */}
                       <View>
                       {/* <Image /> */}
                       </View>
-                    <Text style={{color: '#ffffff'}}>{Profile?.name}</Text>
+                    <Text style={styles.nameText}>{Profile?.name}</Text>
                     <View>
                         {Profile?.interests.map((item,index) => (
-                            <Text style={{color: '#ffffff'}} key={index}>{item.viewValue}</Text>
+                            <Text style={styles.interestText} key={index}>{item.viewValue}</Text>
                         ))}
                     </View>
                     <View>
@@ -282,19 +282,18 @@ export const SearchConnect = ({ route }) => {
 
 const styles = StyleSheet.create({
     input: {
-        backgroundColor: '#161616',
-        // fontFamily: 'Poppins',
+        backgroundColor: 'hsla(0, 0.00%, 100.00%, 0.02)',
         color: '#FFFFFF',
-        borderBottomColor: '#46B1EE',
-        borderBottomWidth: 2,
+        borderColor: 'hsla(0, 0.00%, 100.00%, 0.2)',
+        borderWidth: 1,
+        borderRadius: 10,
         fontSize: 14,
-        lineHeight: 17,
         marginTop: 2,
-        padding: 0,
+        padding: 12,
       },
   container: {
     height: '100%',
-    backgroundColor: '#161616'
+    backgroundColor: '#05020E'
   },
   containerStyle: {
     backgroundColor: '#BBD4E2',
@@ -312,10 +311,25 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-between'
   },
   heading: {
-    // // fontFamily: 'Poppins',
-    fontSize: 20,
-    lineHeight: 24,
+    fontFamily: 'ProximaBold',
+    fontSize: 23,
+    lineHeight: 28,
     color: '#FFFFFF',
+    textTransform: 'uppercase',
+    marginLeft: 25,
+    marginBottom: 20,
+  },
+  nameText: {
+    fontFamily: 'ProximaBold',
+    color: '#ffffff',
+    fontSize: 18,
+    marginVertical: 10,
+  },
+  interestText: {
+    fontFamily: 'Proxima',
+    color: '#ffffff',
+    fontSize: 14,
+    marginVertical: 5,
   },
   pagerView: {
     height: 180,

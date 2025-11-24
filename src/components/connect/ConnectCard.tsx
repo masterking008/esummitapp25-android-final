@@ -139,11 +139,9 @@ export const ConnectCard = (props: IConnectBoxProps) => {
           {/* <Text style={styles.persontype}>{'\u2B24'} {props.persontype}</Text> */}
           {/* <Text style={styles.venue}>Time : {getTime(props.startTime)} - {getTime(props.endTime)}</Text> */}
         </View>
-        <View>
-        <TouchableOpacity style={{width: '100%', alignSelf: 'center'}}>
-          <Button style={[styles.button, {marginTop: 10}]} onPress={handleSubmit} disabled={isdisable}>
+        <View style={{marginTop: 10}}>
+          <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={isdisable}>
             <Text style={styles.buttonText}>{connecttext}</Text>
-          </Button>
           </TouchableOpacity>
         </View>
       </View>
@@ -154,98 +152,108 @@ export const ConnectCard = (props: IConnectBoxProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 5,
-    // margin: 1,
+    paddingVertical: 8,
     width: Dimensions.get('window').width / 2 - 20,
     height: Dimensions.get('window').height / 2.5,
   },
   container2: {
     width: '100%',
-    // borderColor: '#ffffff',
-    backgroundColor: '#232323',
-    // borderWidth: 2,
-    borderRadius: 14,
-    padding: 25,
-    justifyContent: 'center',
-    height: '100%'
+    backgroundColor: '#1e1e1e',
+    borderColor: '#FFE100',
+    borderWidth: 1,
+    borderRadius: 16,
+    padding: 20,
+    justifyContent: 'space-between',
+    height: '100%',
+    shadowColor: '#FFE100',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
   },
   flag: {
     width: 80,
     backgroundColor: '#FFE100',
     paddingVertical: 4,
     paddingHorizontal: 6,
-    borderRadius: 4,
+    borderRadius: 6,
     position: 'absolute',
     right: -3,
     top: 19,
   },
   flagText: {
+    fontFamily: 'Proxima',
     textAlign: 'center',
     fontSize: 7,
     lineHeight: 9,
-    // fontFamily: 'Poppins',
-    color: '#fff',
+    color: '#1e1e1e',
+    fontWeight: '600',
   },
   image: {
-    // height: Dimensions.get('window').width / 2 - 40,
-    // width: Dimensions.get('window').width / 2 - 40,
-    width: '70%',
-    aspectRatio: 1,
-    borderRadius: 50,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
   },
   content: {
-    // width: '50%',
-    // position: 'absolute',
-    // bottom: 10,
-    // left: 15,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
-    // padding: 10
+    marginBottom: 15,
   },
   content2: {
-    // width: '50%',
-    // padding: 10,
     paddingVertical: 10,
     alignItems: 'flex-start',
-    justifyContent: 'center',
-    // textAlign: 'center',
-    // position: 'absolute',
-    // bottom: 10,
-    // left: 15,
+    justifyContent: 'flex-start',
+    flex: 1,
   },
   event: {
     fontFamily: 'ProximaBold',
-    color: '#fff',
+    color: '#ffffff',
     fontSize: 16,
-    // textAlign: 'center'
-    // lineHeight: 15,
+    fontWeight: '700',
+    marginBottom: 6,
+    letterSpacing: 0.3,
   },
   venue: {
     fontFamily: 'Proxima',
-    color: '#9D9D9D',
-    fontSize: 12,
-    // marginBottom: 2
-    // lineHeight: 10,
+    color: '#cccccc',
+    fontSize: 13,
+    marginBottom: 6,
+    lineHeight: 18,
   },
   persontype: {
-    color: '#A6CE3B',
-    fontSize: 10
+    fontFamily: 'Proxima',
+    color: '#FFE100',
+    fontSize: 11,
+    fontWeight: '500',
+    letterSpacing: 0.2,
   },
   button: {
-    paddingHorizontal: 11,
-    // paddingVertical: 1,
-    height: 30,
-    borderRadius: 20,
+    paddingHorizontal: 16,
+    height: 38,
+    borderRadius: 24,
     backgroundColor: '#FFE100',
-    color: '#ffffff',
-    width: '100%'
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // shadowColor: '#FFE100',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.3,
+    // shadowRadius: 4,
+    // elevation: 3,
   },
   buttonText: {
-    // fontFamily: 'Poppins',
-    fontSize: 10,
-    lineHeight: 15,
-    color: '#ffffff',
-    // textTransform: 'uppercase',
+    fontFamily: 'ProximaBold',
+    fontSize: 13,
+    color: '#1e1e1e',
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
   },
 });

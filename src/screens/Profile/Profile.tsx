@@ -137,7 +137,7 @@ export const Profile = () => {
         <View style={styles.passContainer}>
           <View style={styles.passContent}>
             <Text style={styles.boldSmallText}>Pass : </Text>
-            {pass === null || pass === undefined ? (
+            {pass === null || pass === undefined || pass === 'unknown' || pass === 'none' ? (
               <Text style={styles.boldSmallText}>Not Purchased</Text>
             ) : (
               <Text style={styles.boldSmallText}>{pass}</Text>
@@ -166,7 +166,7 @@ export const Profile = () => {
       </>
       )} */}
 
-        {pass === null || pass === undefined || isguest ? (
+        {pass === null || pass === undefined || pass === 'unknown' || pass === 'none' || isguest ? (
           <View style={styles.getPassContainer}>
             <TouchableOpacity
               style={styles.getPassButton}
@@ -181,7 +181,7 @@ export const Profile = () => {
           </View>
         ) : null}
 
-        <Text style={styles.title}>More</Text>
+        {/* <Text style={styles.title}>More</Text> */}
 
         {isguest ? (
           <>
@@ -288,7 +288,8 @@ const styles = StyleSheet.create({
   getPassContainer: {
     width: '100%',
     alignItems: 'center',
-    marginVertical: 15,
+    // marginVertical: 5,
+    marginBottom: 20,
   },
   getPassButton: {
     backgroundColor: '#05020E',
@@ -314,7 +315,7 @@ const styles = StyleSheet.create({
   passContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 20,
+    marginVertical: 20,
   },
   title: {
     fontFamily: 'ProximaBold',
@@ -412,7 +413,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 25,
     borderWidth: 1,
-    borderColor: 'rgba(255, 77, 77, 0.3)',
+    // borderColor: 'rgba(255, 77, 77, 0.3)',
   },
   modalTitle: {
     color: '#FFFFFF',

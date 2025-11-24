@@ -286,7 +286,7 @@ export const useStoreToken = (): UseMutationResult<
     ErrorResponse,
     { expotoken: string, email: string }
   >({
-    mutationKey: [ESUMMIT_SEND_REQUEST],
+    mutationKey: ['ESUMMIT_STORE_TOKEN'],
     mutationFn: async ({ expotoken, email }) => storeExpoToken(expotoken, email),
   });
 };

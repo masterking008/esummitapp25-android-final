@@ -9,6 +9,7 @@ import {
   Dimensions,
   TextInput,
   Image,
+  ImageBackground,
 } from 'react-native';
 import { Button } from 'react-native-paper';
 // import { ScrollView, NativeViewGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -135,10 +136,10 @@ export const YourConnect = () => {
 
   return (
     <>
-      <View
-        // useAngle
-        // angle={-128.06}
-        style={styles.container}>
+      <ImageBackground
+        source={require('../../assets/images/homeBg.png')}
+        style={styles.container}
+        resizeMode="cover">
         {/* <Modal
             visible={visible}
             // onDismiss={hideModal}
@@ -233,26 +234,14 @@ export const YourConnect = () => {
               <View style={styles.header}>
                 <View style={styles.headcont}>
                   <View style={styles.headcont}>
-                    <Button style={[styles.daybutton, {
-                      backgroundColor: page === 'accepted'
-                        ? '#FFE100'
-                        : '#232323',
-                    },]} onPress={() => setpage('accepted')}>
-                      <Text style={styles.daybuttonText}>Connections</Text>
+                    <Button style={page === 'accepted' ? styles.daybuttonSelected : styles.daybuttonUnselected} onPress={() => setpage('accepted')}>
+                      <Text style={page === 'accepted' ? styles.daybuttonTextSelected : styles.daybuttonTextUnselected}>Connections</Text>
                     </Button>
-                    <Button style={[styles.daybutton, {
-                      backgroundColor: page === 'sent'
-                        ? '#FFE100'
-                        : '#232323',
-                    },]} onPress={() => setpage('sent')}>
-                      <Text style={styles.daybuttonText}>Sent</Text>
+                    <Button style={page === 'sent' ? styles.daybuttonSelected : styles.daybuttonUnselected} onPress={() => setpage('sent')}>
+                      <Text style={page === 'sent' ? styles.daybuttonTextSelected : styles.daybuttonTextUnselected}>Sent</Text>
                     </Button>
-                    <Button style={[styles.daybutton, {
-                      backgroundColor: page === 'received'
-                        ? '#FFE100'
-                        : '#232323',
-                    },]} onPress={() => setpage('received')}>
-                      <Text style={styles.daybuttonText}>Received</Text>
+                    <Button style={page === 'received' ? styles.daybuttonSelected : styles.daybuttonUnselected} onPress={() => setpage('received')}>
+                      <Text style={page === 'received' ? styles.daybuttonTextSelected : styles.daybuttonTextUnselected}>Received</Text>
                     </Button>
                   </View>
                 </View>
@@ -260,7 +249,7 @@ export const YourConnect = () => {
 
               {page === 'accepted' ? (
                 <>
-                  <Text style={{ color: '#FFFFFF', fontSize: 20, marginLeft: 25 }}>Your Connections</Text>
+                  <Text style={styles.heading}>Your Connections</Text>
                   <View style={styles.section}>
                     {Accepeted?.map((item, index) => (
                       <TouchableOpacity key={index}>
@@ -271,7 +260,7 @@ export const YourConnect = () => {
                 </>
               ) : page === 'received' ? (
                 <>
-                  <Text style={{ color: '#FFFFFF', fontSize: 20, marginLeft: 25 }}>Request Received</Text>
+                  <Text style={styles.heading}>Request Received</Text>
                   <View style={styles.section}>
                     {Received?.map((item, index) => (
                       <TouchableOpacity key={index}>
@@ -282,7 +271,7 @@ export const YourConnect = () => {
                 </>
               ) : (
                 <>
-                  <Text style={{ color: '#FFFFFF', fontSize: 20, marginLeft: 25 }}>Sent Request</Text>
+                  <Text style={styles.heading}>Sent Request</Text>
                   <View style={styles.section}>
                     {Waiting?.map((item, index) => (
                       <TouchableOpacity key={index}>
@@ -298,7 +287,7 @@ export const YourConnect = () => {
             </>
           )}
         </ScrollView>
-      </View>
+      </ImageBackground>
       {/* <View style={styles.fab}>
         <TouchableOpacity
           style={[
@@ -350,34 +339,53 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  daybutton: {
+  daybuttonSelected: {
     backgroundColor: '#FFE100',
-    color: '#ffffff',
     width: '30%',
-    marginHorizontal: 5
+    marginHorizontal: 5,
+    borderRadius: 20,
   },
-  daybuttonText: {
-    color: '#ffffff'
+  daybuttonUnselected: {
+    backgroundColor: '#1e1e1e',
+    borderWidth: 1,
+    borderColor: '#FFE100',
+    width: '30%',
+    marginHorizontal: 5,
+    borderRadius: 20,
+  },
+  daybuttonTextSelected: {
+    fontFamily: 'ProximaBold',
+    color: '#1e1e1e',
+    fontWeight: '700',
+    fontSize: 11,
+    letterSpacing: 0.3,
+  },
+  daybuttonTextUnselected: {
+    fontFamily: 'Proxima',
+    color: '#FFE100',
+    fontWeight: '600',
+    fontSize: 11,
+    letterSpacing: 0.2,
   },
   profileiconText: {
+    fontFamily: 'ProximaBold',
     textTransform: 'uppercase',
     color: '#fff',
     fontSize: 20
   },
   input: {
-    backgroundColor: '#161616',
-    // fontFamily: 'Poppins',
+    backgroundColor: 'hsla(0, 0.00%, 100.00%, 0.02)',
     color: '#FFFFFF',
-    borderBottomColor: '#46B1EE',
-    borderBottomWidth: 2,
+    borderColor: 'hsla(0, 0.00%, 100.00%, 0.2)',
+    borderWidth: 1,
+    borderRadius: 10,
     fontSize: 14,
-    lineHeight: 17,
     marginTop: 2,
-    padding: 0,
+    padding: 12,
   },
   container: {
     height: '100%',
-    backgroundColor: '#161616',
+    flex: 1,
   },
   containerStyle: {
     backgroundColor: '#BBD4E2',
@@ -390,15 +398,19 @@ const styles = StyleSheet.create({
   section: {
     paddingTop: 5,
     paddingHorizontal: 12,
+    paddingBottom: 100,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between'
   },
   heading: {
-    // // fontFamily: 'Poppins',
-    fontSize: 20,
-    lineHeight: 24,
+    fontFamily: 'ProximaBold',
+    fontSize: 23,
+    lineHeight: 28,
     color: '#FFFFFF',
+    textTransform: 'uppercase',
+    marginLeft: 25,
+    marginBottom: 10,
   },
   pagerView: {
     height: 180,
@@ -421,7 +433,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#DCE9F0',
   },
   accordionTitle: {
-    // // fontFamily: 'Poppins',
+    fontFamily: 'Proxima',
     fontSize: 16,
     textTransform: 'uppercase',
     color: '#141415',
@@ -436,7 +448,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   itemText: {
-    // fontFamily: 'Poppins',
+    fontFamily: 'Proxima',
     fontSize: 14,
     textTransform: 'uppercase',
   },
@@ -461,8 +473,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fabButtonText: {
+    fontFamily: 'Proxima',
     color: '#FFFFFF',
-    // fontFamily: 'Poppins',
     fontSize: 10,
     lineHeight: 12,
     paddingHorizontal: 8,

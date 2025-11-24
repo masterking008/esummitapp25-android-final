@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ActivityIndicator, Avatar, Button } from 'react-native-paper';
 import { useTagOfEventQuery } from '../../hooks/query/user-query';
@@ -12,6 +12,7 @@ interface IEventAttendanceProps {
 }
 
 export const EventAttendance = (props: IEventAttendanceProps) => {
+  const [actionPerformed, setActionPerformed] = useState(false);
   const { data: qrCode, isLoading } = useTagOfEventQuery(
     props.email,
     props.event,
@@ -21,13 +22,12 @@ export const EventAttendance = (props: IEventAttendanceProps) => {
   const { mutateAsync } = useMarkEventAttendanceMutation();
 
   const handleClick = async () => {
+    setActionPerformed(true);
     mutateAsync({ email: props.email, event: props.event }).then(res => {
       if (res.success) {
         toast.show('Updated', { type: 'success' });
-        props.close();
       } else {
         toast.show('Failed. Try after sometime', { type: 'danger' });
-        props.close();
       }
     });
   };
@@ -38,7 +38,25 @@ export const EventAttendance = (props: IEventAttendanceProps) => {
         <ActivityIndicator animating={true} color="#FFE100" size="large" />
       ) : (
         <>
-          {qrCode?.success && qrCode?.data.tag !== 'not going' ? (
+          {actionPerformed ? (
+            <>
+              <Avatar.Icon
+                size={100}
+                icon="check"
+                style={{ backgroundColor: 'green' }}
+              />
+              <Text style={{ color: '#FFFFFF', fontSize: 20 }}>Attendance Marked</Text>
+            </>
+          ) : qrCode?.success && qrCode?.data.tag === 'attended' ? (
+            <>
+              <Avatar.Icon
+                size={100}
+                icon="check-circle"
+                style={{ backgroundColor: 'blue' }}
+              />
+              <Text style={{ color: '#FFFFFF', fontSize: 20 }}>Already Attended</Text>
+            </>
+          ) : qrCode?.success && qrCode?.data.tag === 'going' ? (
             <>
               <Avatar.Icon
                 size={100}
@@ -46,6 +64,15 @@ export const EventAttendance = (props: IEventAttendanceProps) => {
                 style={{ backgroundColor: 'green' }}
               />
               <Text style={{ color: '#FFFFFF', fontSize: 20 }}>Allowed</Text>
+            </>
+          ) : qrCode?.success && qrCode?.data.tag === 'reserve a seat' ? (
+            <>
+              <Avatar.Icon
+                size={100}
+                icon="clock"
+                style={{ backgroundColor: 'orange' }}
+              />
+              <Text style={{ color: '#FFFFFF', fontSize: 20 }}>Seat Reserved</Text>
             </>
           ) : (
             <>
@@ -55,7 +82,7 @@ export const EventAttendance = (props: IEventAttendanceProps) => {
                 style={{ backgroundColor: 'red' }}
               />
               <Text style={{ color: '#FFFFFF', fontSize: 20 }}>
-                Allowed Denied
+                Seat Not Booked
               </Text>
             </>
           )}
@@ -67,14 +94,13 @@ export const EventAttendance = (props: IEventAttendanceProps) => {
             </Text>
           )}
 
-          <View style={{ flexDirection: 'row', marginTop: 10 }}>
+          <View style={{ flexDirection: 'row', marginTop: 10, justifyContent: 'space-around' }}>
             <Button mode="contained" onPress={props.close}>
-              Cancel
+              {actionPerformed ? 'Scan Again' : 'Cancel'}
             </Button>
-
-            {qrCode?.success && (
+            {!actionPerformed && qrCode?.data.tag !== 'attended' && (
               <Button mode="contained" onPress={handleClick}>
-                Allow
+                Mark Attendance
               </Button>
             )}
           </View>

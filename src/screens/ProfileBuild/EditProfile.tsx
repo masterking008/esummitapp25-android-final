@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dimensions,
   ScrollView,
@@ -80,14 +80,27 @@ export const EditProfile = () => {
 
   const stages = ["Ideation/Early Stage", "Pre-Seed", "Seed", "Series-A", "Series-B", "Series-C", "Series-D"];
 
-  const [selectedSchool, setSelectedSchool] = useState(profile?.company_name);
-  const [achievements, setAchievements] = useState(profile?.achievements);
-  const [skills, setSkills] = useState(profile?.skills);
-  const [desc, setDesc] = useState(profile?.description);
-  const [designation, setDesignation] = useState(profile?.designation);
-  const [portfolio, setPortfolio] = useState(profile?.portfolio);
-  const [sector, setsector] = useState(profile?.sector);
-  const [stage, setstage] = useState(profile?.stage);
+  const [selectedSchool, setSelectedSchool] = useState('');
+  const [achievements, setAchievements] = useState('');
+  const [skills, setSkills] = useState('');
+  const [desc, setDesc] = useState('');
+  const [designation, setDesignation] = useState('');
+  const [portfolio, setPortfolio] = useState('');
+  const [sector, setsector] = useState('');
+  const [stage, setstage] = useState('');
+
+  useEffect(() => {
+    if (profile) {
+      setSelectedSchool(profile.company_name || '');
+      setAchievements(profile.achievements || '');
+      setSkills(profile.skills || '');
+      setDesc(profile.description || '');
+      setDesignation(profile.designation || '');
+      setPortfolio(profile.portfolio || '');
+      setsector(profile.sector || '');
+      setstage(profile.stage || '');
+    }
+  }, [profile]);
 
   const onChangeSchool = (text: string) => {
     setSelectedSchool(text)
@@ -115,81 +128,41 @@ export const EditProfile = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false} style={{marginTop: 80}}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
       <View style={styles.containerx}>
         <View style={styles.section}>
           <View>
             {profile?.persontype === "Student" ? (
                 <>
                 <Text style={styles.label}>College/School Name</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    width: '100%',
-                    marginBottom: 10
-                  }}
-                >
+                <View style={styles.inputContainer}>
                     <TextInput style={styles.input} value={selectedSchool} onChangeText={onChangeSchool} />
                 </View>
     
                 <Text style={styles.label}>Your Achievement:</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TextInput multiline={true} numberOfLines={5} style={styles.input} value={achievements} onChangeText={onChangeAchievements} textAlignVertical="top"/>
+                <View style={styles.textAreaContainer}>
+                  <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={achievements} onChangeText={onChangeAchievements} textAlignVertical="top"/>
                 </View>
     
                 <Text style={styles.label}>Your Skills:</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TextInput multiline={true} numberOfLines={5} style={styles.input} value={skills} onChangeText={onChangeSkills} textAlignVertical="top"/>
+                <View style={styles.textAreaContainer}>
+                  <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={skills} onChangeText={onChangeSkills} textAlignVertical="top"/>
                 </View>
                 </>
             ): profile?.persontype === 'Mentor'? (<>
             <>
                 <Text style={styles.label}>Company Name</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    width: '100%',
-                    marginBottom: 10
-                  }}
-                >
+                <View style={styles.inputContainer}>
                     <TextInput style={styles.input} value={selectedSchool} onChangeText={onChangeSchool} />
                 </View>
     
                 <Text style={styles.label}>Your Achievements:</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TextInput multiline={true} numberOfLines={5} style={styles.input} value={achievements} onChangeText={onChangeAchievements} textAlignVertical="top"/>
+                <View style={styles.textAreaContainer}>
+                  <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={achievements} onChangeText={onChangeAchievements} textAlignVertical="top"/>
                 </View>
     
                 <Text style={styles.label}>Select your Sector:</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
+            <View style={styles.sectorContainer}>
               {sectors.map((sec) => (
                 <View key={sec} style={styles.optionCont}>
                   <TouchableOpacity
@@ -200,70 +173,36 @@ export const EditProfile = () => {
                         : styles.notcheckedcont
                     }
                   >
-                    <Text style={styles.label}>{sec}</Text>
+                    <Text style={[styles.optionText, sector === sec && styles.selectedOptionText]}>{sec}</Text>
                   </TouchableOpacity>
                 </View>
               ))}
             </View>
 
                 <Text style={styles.label}>Your Designation</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    width: '100%',
-                    marginBottom: 10
-                  }}
-                >
+                <View style={styles.inputContainer}>
                     <TextInput style={styles.input} value={designation} onChangeText={onChangeDesignation} />
                 </View>
                 </>
             </>): profile?.persontype === 'Investor' ? (
                 <>
                 <Text style={styles.label}>Firm Name</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    width: '100%',
-                    marginBottom: 10
-                  }}
-                >
+                <View style={styles.inputContainer}>
                     <TextInput style={styles.input} value={selectedSchool} onChangeText={onChangeSchool} />
                 </View>
     
                 <Text style={styles.label}>Your Portfolio:</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TextInput multiline={true} numberOfLines={5} style={styles.input} value={portfolio} onChangeText={onChangePortfolio} textAlignVertical="top"/>
+                <View style={styles.textAreaContainer}>
+                  <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={portfolio} onChangeText={onChangePortfolio} textAlignVertical="top"/>
                 </View>
 
                 <Text style={styles.label}>Your Description:</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TextInput multiline={true} numberOfLines={5} style={styles.input} value={desc} onChangeText={onChangeDesc} textAlignVertical="top"/>
+                <View style={styles.textAreaContainer}>
+                  <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={desc} onChangeText={onChangeDesc} textAlignVertical="top"/>
                 </View>
     
                 <Text style={styles.label}>Select your Sector:</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
+            <View style={styles.sectorContainer}>
               {sectors.map((sec) => (
                 <View key={sec} style={styles.optionCont}>
                   <TouchableOpacity
@@ -274,70 +213,36 @@ export const EditProfile = () => {
                         : styles.notcheckedcont
                     }
                   >
-                    <Text style={styles.label}>{sec}</Text>
+                    <Text style={[styles.optionText, sector === sec && styles.selectedOptionText]}>{sec}</Text>
                   </TouchableOpacity>
                 </View>
               ))}
             </View>
 
                 <Text style={styles.label}>Your Designation</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    width: '100%',
-                    marginBottom: 10
-                  }}
-                >
+                <View style={styles.inputContainer}>
                     <TextInput style={styles.input} value={designation} onChangeText={onChangeDesignation} />
                 </View>
                 </>
             ): profile?.persontype === 'Founder'? (
               <>
               <Text style={styles.label}>Startup Name</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    width: '100%',
-                    marginBottom: 10
-                  }}
-                >
+                <View style={styles.inputContainer}>
                     <TextInput style={styles.input} value={selectedSchool} onChangeText={onChangeSchool} />
                 </View>
     
                 <Text style={styles.label}>Your Achievements:</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TextInput multiline={true} numberOfLines={5} style={styles.input} value={achievements} onChangeText={onChangeAchievements} textAlignVertical="top"/>
+                <View style={styles.textAreaContainer}>
+                  <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={achievements} onChangeText={onChangeAchievements} textAlignVertical="top"/>
                 </View>
 
                 <Text style={styles.label}>Your Description:</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TextInput multiline={true} numberOfLines={5} style={styles.input} value={desc} onChangeText={onChangeDesc} textAlignVertical="top"/>
+                <View style={styles.textAreaContainer}>
+                  <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={desc} onChangeText={onChangeDesc} textAlignVertical="top"/>
                 </View>
     
                 <Text style={styles.label}>Select your Sector:</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
+            <View style={styles.sectorContainer}>
               {sectors.map((sec) => (
                 <View key={sec} style={styles.optionCont}>
                   <TouchableOpacity
@@ -348,20 +253,14 @@ export const EditProfile = () => {
                         : styles.notcheckedcont
                     }
                   >
-                    <Text style={styles.label}>{sec}</Text>
+                    <Text style={[styles.optionText, sector === sec && styles.selectedOptionText]}>{sec}</Text>
                   </TouchableOpacity>
                 </View>
               ))}
             </View>
 
             <Text style={styles.label}>Select your Stage:</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
+            <View style={styles.sectorContainer}>
               {stages.map((sec) => (
                 <View key={sec} style={styles.optionCont}>
                   <TouchableOpacity
@@ -372,7 +271,7 @@ export const EditProfile = () => {
                         : styles.notcheckedcont
                     }
                   >
-                    <Text style={styles.label}>{sec}</Text>
+                    <Text style={[styles.optionText, stage === sec && styles.selectedOptionText]}>{sec}</Text>
                   </TouchableOpacity>
                 </View>
               ))}
@@ -380,51 +279,23 @@ export const EditProfile = () => {
                 </>
             ):(<>
             <Text style={styles.label}>Company Name</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    width: '100%',
-                    marginBottom: 10
-                  }}
-                >
+                <View style={styles.inputContainer}>
                     <TextInput style={styles.input} value={selectedSchool} onChangeText={onChangeSchool} />
                 </View>
 
                 <Text style={styles.label}>Your Desingation</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    width: '100%',
-                    marginBottom: 10
-                  }}
-                >
+                <View style={styles.inputContainer}>
                     <TextInput style={styles.input} value={designation} onChangeText={onChangeDesignation} />
                 </View>
     
                 <Text style={styles.label}>Your Achievements:</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TextInput multiline={true} numberOfLines={5} style={styles.input} value={achievements} onChangeText={onChangeAchievements} textAlignVertical="top"/>
+                <View style={styles.textAreaContainer}>
+                  <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={achievements} onChangeText={onChangeAchievements} textAlignVertical="top"/>
                 </View>
 
                 <Text style={styles.label}>Your Skills:</Text>
-                <View
-                  style={{
-                    flexWrap: "wrap",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TextInput multiline={true} numberOfLines={5} style={styles.input} value={skills} onChangeText={onChangeSkills} textAlignVertical="top"/>
+                <View style={styles.textAreaContainer}>
+                  <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={skills} onChangeText={onChangeSkills} textAlignVertical="top"/>
                 </View>
             </>)}
             <Button title="Submit" onPress={handleSubmit} />
@@ -440,85 +311,103 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#05020E",
     width: "100%",
-    // height: Dimensions.get('window').height,
     height: "100%",
-
   },
   containerx: {
-    // backgroundColor: "#121212",
-    // width: "100%",
-    // height: Dimensions.get('window').height + 200,
     height: "100%",
-    marginBottom: 100,
-
+    // marginBottom: 100,
   },
   section: {
     padding: 20,
-    // backgroundColor: "#121212",
-    // height: Dimensions.get("window").height,
   },
   heading: {
-    // fontFamily: 'Poppins',
     fontSize: 23,
     lineHeight: 28,
     color: "#FFFFFF",
     textTransform: "uppercase",
   },
   subheading: {
-    // fontFamily: 'Poppins',
     fontSize: 14,
     lineHeight: 17,
     color: "#A2A2A2",
     textTransform: "capitalize",
   },
   optionCont: {
-    width: "40%",
-    textAlign: "center",
-    margin: 10,
-    // height: '35%'
+    width: "45%",
+    margin: 5,
   },
   label:{
     color: '#fff',
     marginVertical: 10,
   },
   checkedcont: {
-    textAlign: 'center',
     borderColor: '#FFE100',
     borderWidth: 2,
     backgroundColor: '#FFE100',
-    padding: 10,
+    padding: 12,
     margin: 3,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    // height: '100%'
   },
   notcheckedcont: {
-    textAlign: 'center',
     borderColor: '#ffffff',
     borderWidth: 2,
-    padding: 10,
+    padding: 12,
     margin: 3,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    // height: 'fite'
+  },
+  scrollView: {
+    marginTop: 80,
+  },
+  inputContainer: {
+    width: '100%',
+    marginBottom: 10,
+  },
+  textAreaContainer: {
+    width: '100%',
+    marginBottom: 15,
+  },
+  sectorContainer: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 15,
   },
   input: {
-    // backgroundColor: '#121212',
-    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.02)", // Semi-transparent background
+    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.02)",
     fontFamily: 'Proxima',
     color: '#FFFFFF',
     borderColor: 'hsla(0, 0.00%, 100.00%, 0.2)',
     borderWidth: 1,
     borderRadius: 10,
     fontSize: 14,
-    // lineHeight: 17,
     marginTop: 2,
-    padding: 10,
-    width: '100%'
+    padding: 12,
+    width: '100%',
+  },
+  textAreaInput: {
+    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.02)",
+    fontFamily: 'Proxima',
+    color: '#FFFFFF',
+    borderColor: 'hsla(0, 0.00%, 100.00%, 0.2)',
+    borderWidth: 1,
+    borderRadius: 10,
+    fontSize: 14,
+    marginTop: 2,
+    padding: 12,
+    width: '100%',
+    minHeight: 100,
+  },
+  optionText: {
+    color: '#fff',
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  selectedOptionText: {
+    color: '#000',
   },
   warning: {
     color: 'red',

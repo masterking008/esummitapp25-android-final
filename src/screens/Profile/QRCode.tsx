@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Button, List, Modal, Portal, RadioButton } from 'react-native-paper';
+import { Button, Modal, Portal, RadioButton } from 'react-native-paper';
 import { runOnJS } from 'react-native-reanimated';
 // import {
 //   useCameraDevices,
@@ -35,27 +35,37 @@ export const QRCode = () => {
 
   const [visible, setVisible] = useState(false);
   const [scanned, setScanned] = useState(false);
+  const [actionCompleted, setActionCompleted] = useState(false);
+  const [lastScannedCode, setLastScannedCode] = useState<string>();
 
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
 
-  const device = CameraType.back
-//   const device = devices.back;
+  const device = CameraType.back;
 
   const [attendee, setAttendee] = useState<string>();
 
-  const handleScan = ({ type, data }) => {
-    setScanned(true)
-    // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+  const handleScan = ({ type, data }: { type: string; data: string }) => {
+    if (scanned || data === lastScannedCode) return;
+    setScanned(true);
+    setActionCompleted(false);
+    setLastScannedCode(data);
     setAttendee(data);
-    // if (data.length > 0) {
-    //   const code = data[0].displayValue as string;
-    // }
   };
 
   const onClose = async () => {
+    setActionCompleted(true);
+  };
+
+  const onReset = () => {
+    resetScanner();
+  };
+
+  const resetScanner = () => {
     setAttendee(undefined);
-    setScanned(false)
+    setScanned(false);
+    setActionCompleted(false);
+    setLastScannedCode(undefined);
   };
 
   // const frameProcessor = useFrameProcessor(frame => {
@@ -76,65 +86,44 @@ export const QRCode = () => {
   }, []);
 
   return (
-    <View
-    //   useAngle
-    //   angle={-128.06}
-      style={styles.container}>
+    <View style={styles.container}>
       <Portal>
         <Modal
           visible={visible}
-          // onDismiss={hideModal}
-          contentContainerStyle={styles.containerStyle}>
-          <ScrollView>
-            <View>
-              <RadioButton.Group
-                onValueChange={newValue => setEvent(newValue)}
-                value={event}>
+          onDismiss={hideModal}
+          contentContainerStyle={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Select Task</Text>
+          <ScrollView style={styles.modalContent} showsVerticalScrollIndicator={false}>
+            <RadioButton.Group
+              onValueChange={newValue => setEvent(newValue)}
+              value={event}>
+              <TouchableOpacity
+                style={styles.radioItem}
+                onPress={() => setEvent('Entry Attendance')}>
+                <RadioButton value={'Entry Attendance'} />
+                <Text style={styles.radioText}>Entry Attendance</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.radioItem}
+                onPress={() => setEvent('Accomodation')}>
+                <RadioButton value={'Accomodation'} />
+                <Text style={styles.radioText}>Accommodation</Text>
+              </TouchableOpacity>
+              {EventName?.data.map((item, index) => (
                 <TouchableOpacity
-                  onPress={() => {
-                    setEvent('Entry Attendance');
-                  }}>
-                  <View style={styles.itemList}>
-                    <RadioButton value={'Entry Attendance'} />
-                    <Text style={styles.itemText}>{'Entry Attendance'}</Text>
-                  </View>
+                  key={index}
+                  style={styles.radioItem}
+                  onPress={() => setEvent(item.name)}>
+                  <RadioButton value={item.name} />
+                  <Text style={styles.radioText}>{item.name}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    setEvent('Accomodation');
-                  }}>
-                  <View style={styles.itemList}>
-                    <RadioButton value={'Accomodation'} />
-                    <Text style={styles.itemText}>{'Accomodation'}</Text>
-                  </View>
-                </TouchableOpacity>
-                {EventName?.data.map((item, index) => {
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      onPress={() => {
-                        if (event === item.name) {
-                          setEvent('Entry Attendance');
-                        } else {
-                          setEvent(item.name);
-                        }
-                      }}>
-                      <View style={styles.itemList}>
-                        <RadioButton value={item.name} />
-                        <Text style={styles.itemText}>{item.name}</Text>
-                      </View>
-                    </TouchableOpacity>
-                  );
-                })}
-              </RadioButton.Group>
-            </View>
+              ))}
+            </RadioButton.Group>
           </ScrollView>
-          <View style={styles.modalFooter}>
-            <TouchableOpacity onPress={hideModal}>
-            <Button mode="contained">
+          <View style={styles.modalActions}>
+            <Button mode="contained" onPress={hideModal}>
               Done
             </Button>
-            </TouchableOpacity>
           </View>
         </Modal>
       </Portal>
@@ -169,18 +158,22 @@ export const QRCode = () => {
       </View>
 
       <View style={styles.section}>
-        <TouchableOpacity onPress={showModal}>
-        <Button mode="contained">
-          TASK : {event}
+        <Button
+          mode="contained"
+          onPress={showModal}
+          style={styles.taskButton}
+          labelStyle={styles.taskButtonText}
+          icon="format-list-bulleted">
+          {event}
         </Button>
-        </TouchableOpacity>
       </View>
+      
       <View style={styles.section}>
         <Text style={{ color: 'white', fontSize: 20 }}>Status</Text>
         {attendee &&
         Validator.email.test(attendee) &&
         event === 'Entry Attendance' ? (
-          <ScanResult email={attendee} close={onClose} />
+          <ScanResult key={attendee} email={attendee} close={onClose} />
         ) : (
           <Text style={{ color: 'red', fontSize: 25, textAlign: 'center' }}>
             Please Scan the QR Code
@@ -190,22 +183,34 @@ export const QRCode = () => {
         {attendee &&
         Validator.email.test(attendee) &&
         event === 'Accomodation' ? (
-          <AccomodationResult email={attendee} close={onClose} />
+          <AccomodationResult key={attendee} email={attendee} close={onClose} />
         ) : null}
 
         {attendee &&
         Validator.email.test(attendee) &&
         event !== 'Entry Attendance' && event !== 'Accomodation' ? (
-          <EventAttendance email={attendee} event={event} close={onClose} />
+          <EventAttendance key={`${attendee}-${event}`} email={attendee} event={event} close={onReset} />
         ) : null}
       </View>
+      
+      {(scanned || actionCompleted) && (
+        <View style={styles.section}>
+          <Button
+            mode="contained"
+            onPress={resetScanner}
+            style={styles.scanAgainButton}
+            icon="qrcode-scan">
+            Scan Again
+          </Button>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    flex: 1,
     backgroundColor: '#121212'
   },
   section: {
@@ -217,40 +222,38 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  containerStyle: {
-    backgroundColor: '#BBD4E2',
-    width: '70%',
-    alignSelf: 'center',
-    padding: 10,
-    borderRadius: 10,
-    maxHeight: Dimensions.get('window').width,
+  modalContainer: {
+    backgroundColor: 'white',
+    marginHorizontal: 30,
+    borderRadius: 12,
+    padding: 20,
   },
-  modalFooter: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingRight: 10,
-    paddingTop: 10,
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 15,
   },
-  accordion: {
-    backgroundColor: '#DCE9F0',
+  modalContent: {
+    maxHeight: 400,
   },
-  accordionTitle: {
-    // fontFamily: 'Poppins',
-    fontSize: 16,
-    textTransform: 'uppercase',
-    color: '#141415',
-  },
-  itemList: {
-    backgroundColor: '#FFFFFF',
+  radioItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: 'grey',
+    paddingVertical: 8,
   },
-  itemText: {
-    // fontFamily: 'Poppins',
-    fontSize: 14,
-    textTransform: 'uppercase',
+  radioText: {
+    fontSize: 16,
+    marginLeft: 8,
+  },
+  modalActions: {
+    marginTop: 15,
+    alignItems: 'center',
+  },
+  taskButton: {
+    backgroundColor: '#2196F3',
+  },
+  scanAgainButton: {
+    backgroundColor: '#4CAF50',
   },
 });

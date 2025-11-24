@@ -144,7 +144,7 @@ export const BuildProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
         <View style={styles.containerx}>
           <View style={styles.section}>
             {/* <Text style={styles.heading}>Sign In</Text>
@@ -158,43 +158,43 @@ export const BuildProfileScreen = () => {
           /> */}
             <Text style={styles.heading}>Build Profile for Networking</Text>
             <View>
-              <Text style={{ color: '#ffffff', fontFamily: 'ProximaBold', fontSize: 18 }}>Select your Interests:</Text>
-              <View style={{ flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
+              <Text style={styles.label}>Select your Interests:</Text>
+              <View style={styles.sectorContainer}>
                 {languages?.map((language) => (
                   <View key={language.value} style={styles.optionCont}>
                     <TouchableOpacity
                       onPress={() => toggleLanguage(language.value)}
                       style={selectedLanguages.includes(language.value) ? styles.checkedcont : styles.notcheckedcont}
                     >
-                      <Text style={{ color: '#ffffff', fontFamily: 'ProximaBold', fontSize: 13 }}>{language.viewValue}</Text>
+                      <Text style={[styles.optionText, selectedLanguages.includes(language.value) && styles.selectedOptionText]}>{language.viewValue}</Text>
                     </TouchableOpacity>
                   </View>
                 ))}
               </View>
 
-              <Text style={{ color: '#ffffff', fontFamily: 'ProximaBold', fontSize: 18 }}>Who are you?</Text>
-              <View style={{ flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
+              <Text style={styles.label}>Who are you?</Text>
+              <View style={styles.sectorContainer}>
                 {person.map((language) => (
                   <View key={language} style={styles.optionCont}>
                     <TouchableOpacity
                       onPress={() => togglePerson(language)}
                       style={selectedPerson === language ? styles.checkedcont : styles.notcheckedcont}
                     >
-                      <Text style={{ color: '#ffffff', fontFamily: 'ProximaBold', fontSize: 13 }}>{language}</Text>
+                      <Text style={[styles.optionText, selectedPerson === language && styles.selectedOptionText]}>{language}</Text>
                     </TouchableOpacity>
                   </View>
                 ))}
               </View>
 
-              <Text style={{ color: '#ffffff', fontFamily: 'ProximaBold', fontSize: 18 }}>Whom you wanna meet in E-Summit(Select One)?</Text>
-              <View style={{ flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
+              <Text style={styles.label}>Whom you wanna meet in E-Summit(Select One)?</Text>
+              <View style={styles.sectorContainer}>
                 {whomtomeet.map((language) => (
                   <View key={language} style={styles.optionCont}>
                     <TouchableOpacity
                       onPress={() => toggleMeet(language)}
                       style={selectedMeet === language ? styles.checkedcont : styles.notcheckedcont}
                     >
-                      <Text style={{ color: '#ffffff', fontFamily: 'ProximaBold', fontSize: 13 }}>{language}</Text>
+                      <Text style={[styles.optionText, selectedMeet === language && styles.selectedOptionText]}>{language}</Text>
                     </TouchableOpacity>
                   </View>
                 ))}
@@ -210,68 +210,71 @@ export const BuildProfileScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#121212',
-    width: '100%',
-    // height: Dimensions.get('window').height,
-    height: '100%',
-    paddingTop: 10,
-    paddingBottom: 30,
+    backgroundColor: "#05020E",
+    width: "100%",
+    height: "100%",
   },
   containerx: {
-    backgroundColor: '#121212',
-    // height: '100%',
-    marginBottom: 80,
-
+    height: "100%",
   },
   section: {
     padding: 20,
-    backgroundColor: '#121212',
-    // height: Dimensions.get('window').height,
   },
   heading: {
-    fontFamily: 'ProximaBold',
-    fontSize: 19,
-    // lineHeight: 28,
-    color: '#FFFFFF',
+    fontSize: 23,
+    lineHeight: 28,
+    color: "#FFFFFF",
+    textTransform: "uppercase",
     marginBottom: 20,
-    textTransform: 'uppercase',
   },
   subheading: {
-    // fontFamily: 'Poppins',
     fontSize: 14,
     lineHeight: 17,
-    color: '#A2A2A2',
-    textTransform: 'capitalize',
+    color: "#A2A2A2",
+    textTransform: "capitalize",
   },
   optionCont: {
-    width: '40%',
-    textAlign: 'center',
-    margin: 10,
-    // height: '35%'
+    width: "45%",
+    margin: 5,
+  },
+  label: {
+    color: '#fff',
+    marginVertical: 10,
   },
   checkedcont: {
-    textAlign: 'center',
     borderColor: '#FFE100',
     borderWidth: 2,
     backgroundColor: '#FFE100',
-    padding: 10,
+    padding: 12,
     margin: 3,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    // height: '100%'
   },
   notcheckedcont: {
-    textAlign: 'center',
     borderColor: '#ffffff',
     borderWidth: 2,
-    padding: 10,
+    padding: 12,
     margin: 3,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    // height: 'fite'
-  }
+  },
+  scrollView: {
+    marginTop: 80,
+  },
+  sectorContainer: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 15,
+  },
+  optionText: {
+    color: '#fff',
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  selectedOptionText: {
+    color: '#000',
+  },
 });

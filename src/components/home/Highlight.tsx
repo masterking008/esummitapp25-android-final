@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   alt: {
     // fontFamily: 'Poppins',
-    fontSize: 18,
+    fontSize: 14,
     fontFamily: 'ProximaBold',
     // lineHeight: 15,
     color: '#FFFFFF',
@@ -157,15 +157,15 @@ const styles = StyleSheet.create({
   },
   alt2: {
     fontFamily: 'Proxima',
-    fontSize: 16,
+    fontSize: 12,
     color: '#9D9D9D',
     marginVertical: 1,
   },
   alt3: {
-    // fontFamily: 'Proxima',
+    fontFamily: 'Proxima',
     fontWeight: '900',
     color: '#ffffff',
-    fontSize: 16,
+    fontSize: 14,
   },
   dots: {
     height: '30%',

@@ -27,32 +27,37 @@ Notifications.setNotificationHandler({
 async function registerForPushNotificationsAsync() {
   let token;
 
-  if (Platform.OS === 'android') {
-    await Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
+  try {
+    if (Platform.OS === 'android') {
+      await Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
 
-  if (Device.isDevice) {
+    if (Device.isDevice) {
     const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        console.warn('Failed to get push token for push notification!');
+        return null;
+      }
+      
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log('expo token:', token);
+    } else {
+      console.warn('Must use physical device for Push Notifications');
+      return null;
     }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
-    }
-    // Learn more about projectId:
-    // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    alert('Must use physical device for Push Notifications');
+  } catch (error) {
+    console.error('Error encountered while fetching Expo token:', error);
+    return null;
   }
 
   return token;
@@ -71,7 +76,16 @@ export default function App() {
   const responseListener = useRef<Notifications.Subscription>();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    registerForPushNotificationsAsync()
+      .then(token => {
+        if (token) {
+          setExpoPushToken(token);
+          console.log('Token Stored');
+        }
+      })
+      .catch(error => {
+        console.error('Failed to register for push notifications:', error);
+      });
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
@@ -84,7 +98,6 @@ export default function App() {
     return () => {
       notificationListener.current && Notifications.removeNotificationSubscription(notificationListener.current!);
       responseListener.current && Notifications.removeNotificationSubscription(responseListener.current!);
-      console.log(expoPushToken)
     };
   }, []);
 

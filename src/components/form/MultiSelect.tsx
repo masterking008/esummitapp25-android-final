@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Button } from '.';
+import { ButtonBox as Button } from './Button';
 import MultiSelect from 'react-native-multiple-select';
 
 interface IMultiSelectProps {

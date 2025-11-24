@@ -8,7 +8,7 @@ import {
 } from 'react-native-confirmation-code-field';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useToast } from 'react-native-toast-notifications';
-import { Button } from '.';
+import { ButtonBox as Button } from './Button';
 import { FLOW_STAGES } from '../../contants';
 import { useVerifyOtpMutation } from '../../hooks/mutation/user-action-mutation';
 import { useFlowStore } from '../../store/flow-store';
@@ -71,7 +71,7 @@ export const OtpBox = (props: OtpBoxProps) => {
               email: email,
               image: 'https://2k21.s3.ap-south-1.amazonaws.com/Ellipse+8.png',
               name: 'Guest User',
-              pass: 'Not Purchased',
+              pass: 'none',
               isSignedIn: true,
               isGuest: true,
             });
@@ -88,6 +88,12 @@ export const OtpBox = (props: OtpBoxProps) => {
                 break;
               case 'lvl3':
                 summitPassLevel = 'Platinum';
+                break;
+              case 'lvl4':
+                summitPassLevel = 'Signature';
+                break;
+              case 'none':
+                summitPassLevel = 'none';
                 break;
               default:
                 summitPassLevel = 'Unknown';

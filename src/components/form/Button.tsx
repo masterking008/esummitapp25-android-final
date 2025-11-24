@@ -18,7 +18,7 @@ export const ButtonBox = (props: IButtonProps) => {
         style={styles.button}
         buttonColor={props.isDisabled ? '#666666' : '#FFE100'}
         onPress={!props.isDisabled && props.onPress}>
-        <Text style={[styles.buttonText, {color: props.isDisabled ? '#b3b3b3': '#ffffff'}]}>{props.title}</Text>
+        <Text style={[styles.buttonText, {color: props.isDisabled ? '#b3b3b3': '#1e1e1e'}]}>{props.title}</Text>
       </Button>
     </View>
   );

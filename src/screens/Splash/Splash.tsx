@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { useUserDetailMutation } from '../../hooks/mutation/user-action-mutation';
 import { useProfileStore } from '../../store/profile-store';
@@ -174,7 +174,11 @@ export const Splash = () => {
 
   return (
     <View style={styles.container}>
-      <LogoSvg />
+      <Image
+        source={require('../../assets/images/logowhite.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
       <View style={styles.section}>
         <Text style={styles.text}>from</Text>
         <EcellSvg width={85.6} height={90} />
@@ -188,7 +192,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#121212'
+    backgroundColor: '#111'
   },
   section: {
     alignItems: 'center',
@@ -201,5 +205,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 24,
     textTransform: 'lowercase',
+  },
+  logo: {
+    width: 275,
+    height: 125,
   },
 });

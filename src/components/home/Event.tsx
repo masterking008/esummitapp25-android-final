@@ -63,7 +63,7 @@ export const EventBox = (props: IEventBoxProps) => {
           <View style={styles.content2}>
             <View>
               <Text numberOfLines={2} style={styles.event}>{props.event}</Text>
-              <Text style={styles.venue}><LocationSvg width={15} height={15} /> {props.venue}</Text>
+              <Text style={styles.venue}> <LocationSvg width={15} height={15} /> {props.venue}</Text>
             </View>
             {props.tag === 'upcoming' ? (
               <View>
@@ -85,7 +85,7 @@ export const EventBox = (props: IEventBoxProps) => {
             >
               {/* <Button style={[styles.button]} onPress={() => Linking.openURL(url as string)}> */}
                 <Image
-                  source={require('../../assets/images/directionWhite.png')}
+                  source={require('../../assets/images/direction.png')}
                   style={styles.icon}
                 />              
                 {/* </Button> */}
@@ -177,7 +177,8 @@ const styles = StyleSheet.create({
     color: '#9D9D9D',
     fontSize: 13,
     marginBottom: 2,
-    paddingHorizontal: 16,
+    marginLeft: 10,
+    // paddingHorizontal: 16,
     // lineHeight: 10,
   },
   time: {

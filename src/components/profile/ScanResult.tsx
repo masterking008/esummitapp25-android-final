@@ -251,6 +251,10 @@ export const ScanResult = (props: IScanResultProps) => {
                     return 'Gold';
                   case 'lvl3':
                     return 'Platinum';
+                  case 'lvl4':
+                    return 'Signature';
+                  case 'none':
+                    return 'none';
                   default:
                     return 'Unknown';
                 }

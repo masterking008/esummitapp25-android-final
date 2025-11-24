@@ -69,46 +69,24 @@ export const StudentProfile = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
       <View style={styles.containerx}>
         <View style={styles.section}>
-        <Text style={{ color: "#ffffff", fontFamily: 'ProximaBold', fontSize: 20, marginBottom: 20 }}>Profile for Student</Text>
+        <Text style={styles.heading}>Profile for Student</Text>
           <View>
-            <Text style={{ color: "#ffffff", fontFamily: 'ProximaBold', fontSize: 13, marginBottom: 5 }}>College/School Name</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-                width: '100%',
-                marginBottom: 20
-              }}
-            >
+            <Text style={styles.label}>College/School Name</Text>
+            <View style={styles.inputContainer}>
                 <TextInput style={styles.input} value={selectedSchool} onChangeText={onChangeSchool} placeholder="College/School Name" placeholderTextColor={'white'} />
             </View>
 
-            <Text style={{ color: "#ffffff", marginBottom: 5, fontFamily: 'ProximaBold', fontSize: 13, }}>Your Achievement</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-                marginBottom: 20
-              }}
-            >
-              <TextInput multiline={true} numberOfLines={5} textAlignVertical="top" style={styles.input} value={achievements} onChangeText={onChangeAchievements} placeholder="Write your achievements here" placeholderTextColor={'white'} />
+            <Text style={styles.label}>Your Achievement</Text>
+            <View style={styles.textAreaContainer}>
+              <TextInput multiline={true} numberOfLines={5} textAlignVertical="top" style={styles.textAreaInput} value={achievements} onChangeText={onChangeAchievements} placeholder="Write your achievements here" placeholderTextColor={'white'} />
             </View>
 
-            <Text style={{ color: "#ffffff", fontFamily: 'ProximaBold', fontSize: 13, marginBottom: 5 }}>Your Skills</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-                marginBottom: 25
-              }}
-            >
-              <TextInput multiline={true} numberOfLines={5} textAlignVertical="top" style={styles.input} value={skills} onChangeText={onChangeSkills} placeholder="Write your skills here" placeholderTextColor={'white'} />
+            <Text style={styles.label}>Your Skills</Text>
+            <View style={styles.textAreaContainer}>
+              <TextInput multiline={true} numberOfLines={5} textAlignVertical="top" style={styles.textAreaInput} value={skills} onChangeText={onChangeSkills} placeholder="Write your skills here" placeholderTextColor={'white'} />
             </View>
             <Text style={styles.warning}>Note: Your contact details will be shared with person you connect with for better communication</Text>
             <Button title="Submit" onPress={handleSubmit} />
@@ -122,80 +100,91 @@ export const StudentProfile = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#121212",
+    backgroundColor: "#05020E",
     width: "100%",
-    // height: Dimensions.get('window').height,
     height: "100%",
-    
   },
   containerx: {
-    backgroundColor: "#121212",
-    // height: Dimensions.get('window').height + 200,
     height: "100%",
-    marginBottom: 80,
   },
   section: {
     padding: 20,
-    backgroundColor: "#121212",
-    // height: Dimensions.get("window").height,
   },
   heading: {
-    // fontFamily: 'Poppins',
     fontSize: 23,
     lineHeight: 28,
     color: "#FFFFFF",
     textTransform: "uppercase",
+    marginBottom: 20,
   },
   subheading: {
-    // fontFamily: 'Poppins',
     fontSize: 14,
     lineHeight: 17,
     color: "#A2A2A2",
     textTransform: "capitalize",
   },
+  label: {
+    color: '#fff',
+    marginVertical: 10,
+  },
+  inputContainer: {
+    width: '100%',
+    marginBottom: 10,
+  },
+  textAreaContainer: {
+    width: '100%',
+    marginBottom: 15,
+  },
+  scrollView: {
+    marginTop: 80,
+  },
   optionCont: {
-    width: "40%",
-    textAlign: "center",
-    margin: 10,
-    // height: '35%'
+    width: "45%",
+    margin: 5,
   },
   checkedcont: {
-    textAlign: 'center',
     borderColor: '#FFE100',
     borderWidth: 2,
     backgroundColor: '#FFE100',
-    padding: 10,
+    padding: 12,
     margin: 3,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    // height: '100%'
   },
   notcheckedcont: {
-    textAlign: 'center',
     borderColor: '#ffffff',
     borderWidth: 2,
-    padding: 10,
+    padding: 12,
     margin: 3,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    // height: 'fite'
   },
   input: {
-    backgroundColor: '#121212',
+    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.02)",
     fontFamily: 'Proxima',
     color: '#FFFFFF',
-    borderColor: '#ffffff',
-    borderWidth: 2,
+    borderColor: 'hsla(0, 0.00%, 100.00%, 0.2)',
+    borderWidth: 1,
     borderRadius: 10,
     fontSize: 14,
-    // lineHeight: 17,
     marginTop: 2,
-    padding: 10,
-    width: '100%'
+    padding: 12,
+    width: '100%',
+  },
+  textAreaInput: {
+    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.02)",
+    fontFamily: 'Proxima',
+    color: '#FFFFFF',
+    borderColor: 'hsla(0, 0.00%, 100.00%, 0.2)',
+    borderWidth: 1,
+    borderRadius: 10,
+    fontSize: 14,
+    marginTop: 2,
+    padding: 12,
+    width: '100%',
+    minHeight: 100,
   },
   warning: {
     color: 'red',

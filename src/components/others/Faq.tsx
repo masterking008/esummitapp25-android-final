@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   content: {
     width: '100%',
     alignSelf: 'center',
-    paddingTop: 20,
+    // paddingTop: 20,
     // paddingBottom: 30,
     // backgroundColor: "#05020E",
   },

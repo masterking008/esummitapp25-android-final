@@ -106,31 +106,17 @@ export const InvestorProfile = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
       <View style={styles.containerx}>
         <View style={styles.section}>
           <View>
-          <Text style={{ color: "#ffffff" }}>Your Firm Name</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-                width: '100%',
-                marginBottom: 10
-              }}
-            >
+          <Text style={styles.label}>Your Firm Name</Text>
+            <View style={styles.inputContainer}>
                 <TextInput style={styles.input} value={name} onChangeText={onChangeName} placeholder="Firm Name" placeholderTextColor={'white'} />
             </View>
 
-            <Text style={{ color: "#ffffff" }}>Select your Sector Preference</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
+            <Text style={styles.label}>Select your Sector Preference</Text>
+            <View style={styles.sectorContainer}>
               {sectors.map((sect) => (
                 <View key={sect} style={styles.optionCont}>
                   <TouchableOpacity
@@ -141,49 +127,25 @@ export const InvestorProfile = () => {
                         : styles.notcheckedcont
                     }
                   >
-                    <Text style={{ color: "#ffffff" }}>{sect}</Text>
+                    <Text style={[styles.optionText, sector === sect && styles.selectedOptionText]}>{sect}</Text>
                   </TouchableOpacity>
                 </View>
               ))}
             </View>
 
-            <Text style={{ color: "#ffffff" }}>Your Designation</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-                width: '100%',
-                marginBottom: 10
-              }}
-            >
+            <Text style={styles.label}>Your Designation</Text>
+            <View style={styles.inputContainer}>
                 <TextInput style={styles.input} value={designation} onChangeText={onChangeDesignation} placeholder="Designation" placeholderTextColor={'white'}/>
             </View>
 
-            <Text style={{ color: "#ffffff" }}>Your Description</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-                width: '100%',
-                marginBottom: 10
-              }}
-            >
-                <TextInput multiline={true} numberOfLines={5} style={styles.input} value={desc} onChangeText={onChangeDesc} placeholder="Write your description here" placeholderTextColor={'white'} textAlignVertical="top"/>
+            <Text style={styles.label}>Your Description</Text>
+            <View style={styles.textAreaContainer}>
+                <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={desc} onChangeText={onChangeDesc} placeholder="Write your description here" placeholderTextColor={'white'} textAlignVertical="top"/>
             </View>
 
-            <Text style={{ color: "#ffffff" }}>Your Portfolio</Text>
-            <View
-              style={{
-                flexWrap: "wrap",
-                flexDirection: "row",
-                justifyContent: "center",
-                width: '100%',
-                marginBottom: 10
-              }}
-            >
-                <TextInput multiline={true} numberOfLines={5} style={styles.input} value={portfolio} onChangeText={onChangePortfolio} placeholder="Write your portfolio here" placeholderTextColor={'white'} textAlignVertical="top" />
+            <Text style={styles.label}>Your Portfolio</Text>
+            <View style={styles.textAreaContainer}>
+                <TextInput multiline={true} numberOfLines={5} style={styles.textAreaInput} value={portfolio} onChangeText={onChangePortfolio} placeholder="Write your portfolio here" placeholderTextColor={'white'} textAlignVertical="top" />
             </View>
             <Text style={styles.warning}>Note: Your contact details will be shared with person you connect with for better communication</Text>
             <Button title="Next" onPress={handleSubmit} />
@@ -197,23 +159,15 @@ export const InvestorProfile = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#121212",
+    backgroundColor: "#05020E",
     width: "100%",
-    // height: Dimensions.get('window').height,
     height: "100%",
-    
   },
   containerx: {
-    backgroundColor: "#121212",
-    // width: "100%",
-    // height: Dimensions.get('window').height + 200,
     height: "100%",
-    marginBottom: 80,
   },
   section: {
     padding: 20,
-    backgroundColor: "#121212",
-    // height: Dimensions.get("window").height,
   },
   heading: {
     // fontFamily: 'Poppins',
@@ -229,49 +183,82 @@ const styles = StyleSheet.create({
     color: "#A2A2A2",
     textTransform: "capitalize",
   },
+  label: {
+    color: '#fff',
+    marginVertical: 10,
+  },
+  inputContainer: {
+    width: '100%',
+    marginBottom: 10,
+  },
+  textAreaContainer: {
+    width: '100%',
+    marginBottom: 15,
+  },
+  sectorContainer: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 15,
+  },
   optionCont: {
-    width: "40%",
-    textAlign: "center",
-    margin: 10,
-    // height: '35%'
+    width: "45%",
+    margin: 5,
   },
   checkedcont: {
-    textAlign: 'center',
     borderColor: '#FFE100',
     borderWidth: 2,
     backgroundColor: '#FFE100',
-    padding: 10,
+    padding: 12,
     margin: 3,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    // height: '100%'
   },
   notcheckedcont: {
-    textAlign: 'center',
     borderColor: '#ffffff',
     borderWidth: 2,
-    padding: 10,
+    padding: 12,
     margin: 3,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    // height: 'fite'
   },
   input: {
-    backgroundColor: '#121212',
+    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.02)",
     fontFamily: 'Proxima',
     color: '#FFFFFF',
-    borderColor: '#ffffff',
-    borderWidth: 2,
+    borderColor: 'hsla(0, 0.00%, 100.00%, 0.2)',
+    borderWidth: 1,
     borderRadius: 10,
     fontSize: 14,
-    // lineHeight: 17,
     marginTop: 2,
-    padding: 10,
-    width: '100%'
+    padding: 12,
+    width: '100%',
+  },
+  textAreaInput: {
+    backgroundColor: "hsla(0, 0.00%, 100.00%, 0.02)",
+    fontFamily: 'Proxima',
+    color: '#FFFFFF',
+    borderColor: 'hsla(0, 0.00%, 100.00%, 0.2)',
+    borderWidth: 1,
+    borderRadius: 10,
+    fontSize: 14,
+    marginTop: 2,
+    padding: 12,
+    width: '100%',
+    minHeight: 100,
+  },
+  optionText: {
+    color: '#fff',
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  selectedOptionText: {
+    color: '#000',
+  },
+  scrollView: {
+    marginTop: 80,
   },
   warning: {
     color: 'red',

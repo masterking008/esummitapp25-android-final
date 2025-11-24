@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Button } from '.';
+import { ButtonBox as Button } from './Button';
 import { useNavigation } from '@react-navigation/native';
 
 interface IInputBoxProps {
@@ -54,7 +54,7 @@ export const InputBox = (props: IInputBoxProps) => {
       <TextInput
         style={[
           styles.input,
-          { borderBottomColor: isValid ? '#FFE300' : '#D10000' },
+          { borderBottomColor: isValid ? '#FED606' : '#D10000' },
         ]}
         value={props.value}
         onChangeText={handleTextChange}
@@ -105,7 +105,8 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   button: {
-    backgroundColor: '#FFE300',
+    backgroundColor: '#FED606',
+    color: '#1e1e1e',
   },
   input: {
     backgroundColor: '#161616',
