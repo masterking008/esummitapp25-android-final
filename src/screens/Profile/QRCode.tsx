@@ -87,6 +87,7 @@ export const QRCode = () => {
 
   return (
     <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
       <Portal>
         <Modal
           visible={visible}
@@ -167,6 +168,7 @@ export const QRCode = () => {
           {event}
         </Button>
       </View>
+
       
       <View style={styles.section}>
         <Text style={{ color: 'white', fontSize: 20 }}>Status</Text>
@@ -192,8 +194,8 @@ export const QRCode = () => {
           <EventAttendance key={`${attendee}-${event}`} email={attendee} event={event} close={onReset} />
         ) : null}
       </View>
-      
-      {(scanned || actionCompleted) && (
+      </ScrollView>
+                  {(scanned || actionCompleted) && (
         <View style={styles.section}>
           <Button
             mode="contained"
@@ -204,7 +206,7 @@ export const QRCode = () => {
           </Button>
         </View>
       )}
-    </View>
+          </View>
   );
 };
 
@@ -212,6 +214,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#121212'
+  },
+  scrollContent: {
+    flexGrow: 1,
   },
   section: {
     marginHorizontal: 20,

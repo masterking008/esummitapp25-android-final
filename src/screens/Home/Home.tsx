@@ -57,7 +57,7 @@ export const Home = () => {
   const [venues, setVenues] = useState<string[]>([]);
 
   const [filterCategory, setFilterCategory] = useState("");
-  const [filterDay, setFilterDay] = useState<string[]>(["1", "2"]);
+  const [filterDay, setFilterDay] = useState<string[]>(["0", "1", "2"]);
   const [filterVenue, setFilterVenue] = useState("");
 
   const onGoingEvents = useEventStore((state) => state.onGoing);
@@ -141,7 +141,7 @@ export const Home = () => {
 
   const handleResetModal = async () => {
     setFilterCategory("");
-    setFilterDay(["1", "2"]);
+    setFilterDay(["0", "1", "2"]);
     setFilterVenue("");
   };
 
@@ -361,12 +361,26 @@ export const Home = () => {
                       styles.daybutton,
                       {
                         backgroundColor:
-                          filterDay.length === 2 ? "#FFE100" : "hsla(0, 0.00%, 100.00%, 0.05)",
+                          filterDay.length === 3 ? "#FFE100" : "hsla(0, 0.00%, 100.00%, 0.05)",
                       },
                     ]}
-                    onPress={() => setFilterDay(["1", "2"])}
+                    onPress={() => setFilterDay(["0","1", "2"])}
                   >
-                    <Text style={[styles.daybuttonText, { color: filterDay.length === 2 ? "#000000" : "#ffffff" }]}>ALL</Text>
+                    <Text style={[styles.daybuttonText, { color: filterDay.length === 3 ? "#000000" : "#ffffff" }]}>ALL</Text>
+                  </Button>
+                  <Button
+                    style={[
+                      styles.daybutton,
+                      {
+                        backgroundColor:
+                          filterDay.includes("0") && filterDay.length === 1
+                            ? "#FFE100"
+                            : "hsla(0, 0.00%, 100.00%, 0.05)",
+                      },
+                    ]}
+                    onPress={() => setFilterDay(["0"])}
+                  >
+                    <Text style={[styles.daybuttonText, { color: filterDay.includes("0") && filterDay.length === 1 ? "#000000" : "#ffffff" }]}>DAY 0</Text>
                   </Button>
                   <Button
                     style={[
@@ -660,7 +674,7 @@ export const Home = () => {
 const styles = StyleSheet.create({
 
   headcont2: {
-    width: '69%',
+    width: '90%',
     flexDirection: "row",
     marginVertical: 10,
     marginLeft: -1,
