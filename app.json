@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "E-Summit 25",
+    "name": "E-Summit",
     "slug": "summit2025",
     "version": "3.0.4",
     "orientation": "portrait",
-    "icon": "./assets/appicon.png",
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splashfinal.png",
       "backgroundColor": "#121212"
@@ -38,7 +38,7 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.ecell.esummit25",
+      "bundleIdentifier": "com.subhamagr.esummitapp26",
       "buildNumber": "7",
       "ios": {
         "config": {
@@ -47,7 +47,8 @@
       },
       "infoPlist": {
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
-        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -57,7 +58,7 @@
         }
       },
       "adaptiveIcon": {
-        "foregroundImage": "./assets/appicon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#121212"
       },
       "permissions": [
@@ -74,16 +75,16 @@
       "compileSdkVersion": 34,
       "buildToolsVersion": "34.0.0",
       "minSdkversion": 34,
-      "versionCode": 18
+      "versionCode": 20
     },
     "web": {
-      "favicon": "./assets/appicon.png"
+      "favicon": "./assets/icon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "cfe80a44-c8d2-4e92-b674-9fab98eb3ddc"
+        "projectId": "e9ffb482-6fe2-483c-83df-15923e10c2ea"
       }
     },
-    "owner": "masterking008"
+    "owner": "dev.bhavesh"
   }
 }

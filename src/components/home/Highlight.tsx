@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#232323',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    shadowColor: '#2B30B3', // Shadow color
+    shadowColor: '#000000ff', // Shadow color
     shadowOpacity: 0.7, // Shadow opacity (70%)
     shadowOffset: { width: 0, height: 0 }, // Spread shadow in all directions
     shadowRadius: 20, // Spread radius

@@ -4,7 +4,7 @@
       "slug": "summitapp25",
       "version": "3.0.2",
       "orientation": "portrait",
-      "icon": "./assets/appicon.png",
+      "icon": "./assets/icon.png",
       "splash": {
         "image": "./assets/splashfinal.png",
         "backgroundColor": "#121212"
@@ -57,7 +57,7 @@
           }
         },
         "adaptiveIcon": {
-          "foregroundImage": "./assets/appicon.png",
+          "foregroundImage": "./assets/icon.png",
           "backgroundColor": "#121212"
         },
         "permissions": [
@@ -77,7 +77,7 @@
         "versionCode": 13
       },
       "web": {
-        "favicon": "./assets/appicon.png"
+        "favicon": "./assets/icon.png"
       },
       "extra": {
         "eas": {

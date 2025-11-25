@@ -4,7 +4,7 @@
       "slug": "summitapp25",
       "version": "3.0.2",
       "orientation": "portrait",
-      "icon": "./assets/appicon.png",
+      "icon": "./assets/icon.png",
       "splash": {
         "image": "./assets/splashfinal.png",
         "backgroundColor": "#121212"
@@ -57,7 +57,7 @@
           }
         },
         "adaptiveIcon": {
-          "foregroundImage": "./assets/appicon.png",
+          "foregroundImage": "./assets/icon.png",
           "backgroundColor": "#121212"
         },
         "permissions": [
@@ -73,11 +73,12 @@
         "targetSdkVersion": 34,
         "compileSdkVersion": 34,
         "buildToolsVersion": "34.0.0",
+        "buildToolsVersion": "34.0.0",
         "minSdkversion": 34,
         "versionCode": 13
       },
       "web": {
-        "favicon": "./assets/appicon.png"
+        "favicon": "./assets/icon.png"
       },
       "extra": {
         "eas": {
