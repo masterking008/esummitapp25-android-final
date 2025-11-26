@@ -35,7 +35,8 @@
           "android": {
             "compileSdkVersion": 35,
             "targetSdkVersion": 35,
-            "minSdkVersion": 24
+            "minSdkVersion": 24,
+            "memtagMode": "async"
           }
         }
       ]
@@ -48,10 +49,8 @@
       "supportsTablet": false,
       "bundleIdentifier": "com.subhamagr.esummitapp26",
       "buildNumber": "8",
-      "ios": {
-        "config": {
+      "config": {
           "googleMapsApiKey": "AIzaSyBX4Ktw2PLyPVJJEf0AQKxwIN3b738C6JI"
-        }
       },
       "infoPlist": {
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",

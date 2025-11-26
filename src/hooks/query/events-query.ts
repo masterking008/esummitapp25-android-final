@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getEvent, getEventById, getEventsName } from '../../api/events';
 import {
   ESUMMIT_EVENTS,

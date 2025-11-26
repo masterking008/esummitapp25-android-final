@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { NativeViewGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler'; 'react-native-gesture-handler';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, SafeAreaView } from 'react-native';

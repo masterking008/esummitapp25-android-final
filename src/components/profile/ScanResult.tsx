@@ -123,9 +123,9 @@ import { useDistributeKitMutation } from '../../hooks/mutation/user-action-mutat
 import { useMarkAttendaceQuery } from '../../hooks/query/user-query';
 import { useToast } from 'react-native-toast-notifications';
 import { useProfileStore } from '../../store/profile-store';
-import { Logs } from 'expo';
+// import { Logs } from 'expo';
 
-Logs.enableExpoCliLogging();
+// Logs.enableExpoCliLogging();
 
 interface IScanResultProps {
   email: string;

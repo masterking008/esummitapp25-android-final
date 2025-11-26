@@ -143,6 +143,7 @@ export const ConnectMain = () => {
             </View>
         <ScrollView
           style={[styles.container, { marginTop: 80 }]}
+          contentContainerStyle={{ paddingBottom: 100 }}
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl refreshing={isLoading} onRefresh={refetch} />

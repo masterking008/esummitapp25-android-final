@@ -41,8 +41,6 @@ export const QRCode = () => {
   const hideModal = () => setVisible(false);
   const showModal = () => setVisible(true);
 
-  const device = CameraType.back;
-
   const [attendee, setAttendee] = useState<string>();
 
   const handleScan = ({ type, data }: { type: string; data: string }) => {
@@ -136,7 +134,7 @@ export const QRCode = () => {
             backgroundColor: 'black',
           },
         ]}>
-        {device != null && hasPermission && (
+        {hasPermission && (
           <>
             {/* <Camera
               style={StyleSheet.absoluteFill}

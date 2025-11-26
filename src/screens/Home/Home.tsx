@@ -674,16 +674,18 @@ export const Home = () => {
 const styles = StyleSheet.create({
 
   headcont2: {
-    width: '90%',
+    width: '100%',
     flexDirection: "row",
+    justifyContent: "center",
     marginVertical: 10,
-    marginLeft: -1,
+    // marginLeft: -1,
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderWidth: 1, // Thickness of the border
     borderColor: "hsla(0, 0.00%, 100.00%, 0.1)", // Color of the border
-    borderTopRightRadius: 25,
-    borderBottomRightRadius: 25,
+    borderRadius: 25,
+    // borderTopRightRadius: 25,
+    // borderBottomRightRadius: 25,
   },
   innerheadcont: {
     flexDirection: 'row',
