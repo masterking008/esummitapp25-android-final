@@ -7,7 +7,7 @@ import { Button, Divider, List, Modal, Portal, ActivityIndicator } from 'react-n
 import { ProfileSection } from '../../components/profile';
 import { Navbar } from '../../components/shared';
 import { useProfileStore } from '../../store/profile-store';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { MaterialIcons as Icon } from '@expo/vector-icons';
 import CrossSvg from '../../components/svgs/cross';
 import QRCode from 'react-native-qrcode-svg';
 import { FLOW_STAGES } from '../../contants';

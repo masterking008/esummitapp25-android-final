@@ -16,12 +16,7 @@
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
         }
       ],
-      [
-        "expo-barcode-scanner",
-        {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
-        }
-      ],
+
       [
         "expo-notifications",
         {
@@ -35,8 +30,7 @@
           "android": {
             "compileSdkVersion": 35,
             "targetSdkVersion": 35,
-            "minSdkVersion": 24,
-            "memtagMode": "async"
+            "minSdkVersion": 24
           }
         }
       ]

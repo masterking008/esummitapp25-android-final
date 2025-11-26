@@ -22,15 +22,14 @@ import { Camera, CameraType } from 'expo-camera';
 //   BarcodeFormat,
 //   Barcode,
 // } from 'vision-camera-code-scanner';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import { AccomodationResult, EventAttendance, ScanResult } from '../../components/profile';
 import { Validator } from '../../contants';
 import { useEventByName } from '../../hooks/query/events-query';
 
 export const QRCode = () => {
   const { data: EventName, isLoading } = useEventByName();
-  const [hasPermission, setHasPermission] = useState(false);
-  // const [hasPermission, setHasPermission] = Camera.useCameraPermissions();
+  const [permission, requestPermission] = useCameraPermissions();
   const [event, setEvent] = useState('Entry Attendance');
 
   const [visible, setVisible] = useState(false);
@@ -74,14 +73,11 @@ export const QRCode = () => {
   //   runOnJS(handleScan)(detectedBarcodes);
   // }, []);
 
-  const checkPermission = async () => {
-    const { status } = await BarCodeScanner.requestPermissionsAsync();
-    setHasPermission(status === 'granted')
-  };
-
   useEffect(() => {
-    checkPermission()
-  }, []);
+    if (!permission?.granted) {
+      requestPermission();
+    }
+  }, [permission]);
 
   return (
     <View style={styles.container}>
@@ -134,23 +130,15 @@ export const QRCode = () => {
             backgroundColor: 'black',
           },
         ]}>
-        {hasPermission && (
+        {permission?.granted && (
           <>
-            {/* <Camera
-              style={StyleSheet.absoluteFill}
-              type={device}
-              // isActive={!attendee}
-              barCodeScannerSettings={{
-                barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
+            <CameraView
+              style={StyleSheet.absoluteFillObject}
+              onBarcodeScanned={scanned ? undefined : handleScan}
+              barcodeScannerSettings={{
+                barcodeTypes: ['qr'],
               }}
-              // frameProcessor={frameProcessor}
-            //   frameProcessorFps={5}
-            /> */}
-            <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleScan}
-        barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
-        style={StyleSheet.absoluteFillObject}
-      />
+            />
             <Text style={styles.barcodeTextURL}>{attendee}</Text>
           </>
         )}

@@ -6,7 +6,7 @@ import MapsMenuSvg from '../svgs/maps';
 import MoreMenuSvg from '../svgs/more';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 export const GetEntry = ({ navigation }) => {
   const route = useRoute();
