@@ -29,15 +29,15 @@ export const Footer: React.FC<FooterProps> = ({ navigation }) => {
     return (
       <TouchableOpacity
         key={tab.name}
-        style={[styles.tab, isActive && styles.activeTab]}
+        style={styles.tab}
         onPress={() => navigation.navigate(tab.route)}
         activeOpacity={0.7}
       >
         <Image 
           source={tab.icon} 
-          style={[styles.icon, { tintColor: isActive ? '#000' : '#333' }]} 
+          style={[styles.icon, { tintColor: isActive ? '#000' : '#555' }]} 
         />
-        <Text style={[styles.text, { color: isActive ? '#000' : '#333' }]}>
+        <Text style={[styles.text, { color: isActive ? '#000' : '#555' }]}>
           {tab.label}
         </Text>
       </TouchableOpacity>
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '94%',
     height: 70,
-    justifyContent: 'space-around',
     backgroundColor: '#FED606',
     position: 'absolute',
     borderRadius: 60,
@@ -70,16 +69,13 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   tab: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderRadius: 40,
-    minWidth: 60,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
   },
-  activeTab: {
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-  },
+
   icon: {
     width: 24,
     height: 24,
