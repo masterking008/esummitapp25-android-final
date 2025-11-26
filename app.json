@@ -10,8 +10,6 @@
       "backgroundColor": "#121212"
     },
     "plugins": [
-      "@config-plugins/react-native-blob-util",
-      "@config-plugins/react-native-pdf",
       [
         "expo-camera",
         {
@@ -37,9 +35,7 @@
           "android": {
             "compileSdkVersion": 35,
             "targetSdkVersion": 35,
-            "buildToolsVersion": "35.0.0",
-            "minSdkVersion": 34,
-            "supports16KbPageSize": true
+            "minSdkVersion": 24
           }
         }
       ]
@@ -83,10 +79,6 @@
       ],
       "package": "com.subhamagr.Esummit",
       "googleServicesFile": "./src/google-services.json",
-      "targetSdkVersion": 35,
-      "compileSdkVersion": 35,
-      "buildToolsVersion": "35.0.0",
-      "minSdkversion": 34,
       "versionCode": 21
     },
     "web": {
