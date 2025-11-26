@@ -30,6 +30,18 @@
           "icon": "./assets/icon.png",
           "color": "#ffffff"
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0",
+            "minSdkVersion": 34,
+            "supports16KbPageSize": true
+          }
+        }
       ]
     ],
     "userInterfaceStyle": "light",
@@ -39,7 +51,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.subhamagr.esummitapp26",
-      "buildNumber": "7",
+      "buildNumber": "8",
       "ios": {
         "config": {
           "googleMapsApiKey": "AIzaSyBX4Ktw2PLyPVJJEf0AQKxwIN3b738C6JI"
@@ -71,11 +83,11 @@
       ],
       "package": "com.subhamagr.Esummit",
       "googleServicesFile": "./src/google-services.json",
-      "targetSdkVersion": 34,
-      "compileSdkVersion": 34,
-      "buildToolsVersion": "34.0.0",
+      "targetSdkVersion": 35,
+      "compileSdkVersion": 35,
+      "buildToolsVersion": "35.0.0",
       "minSdkversion": 34,
-      "versionCode": 20
+      "versionCode": 21
     },
     "web": {
       "favicon": "./assets/icon.png"
