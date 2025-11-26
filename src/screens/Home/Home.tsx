@@ -353,6 +353,19 @@ export const Home = () => {
                       </View>
                     )) || []}
                   </PagerView>
+                  <View style={styles.dots}>
+                    {Array(EventData?.data?.highlights?.length || 0).fill(0).map((_, index) => (
+                      <View
+                        key={index}
+                        style={[
+                          styles.dot,
+                          {
+                            backgroundColor: currentPage === index ? '#ffe100' : '#fff',
+                          }
+                        ]}
+                      />
+                    ))}
+                  </View>
                 </View>
 
                 <View style={styles.headcont2}>
@@ -674,12 +687,13 @@ export const Home = () => {
 const styles = StyleSheet.create({
 
   headcont2: {
-    width: '100%',
+    // width: '95%',
     flexDirection: "row",
     justifyContent: "center",
+    margin: 20,
     marginVertical: 10,
     // marginLeft: -1,
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
     paddingVertical: 10,
     borderWidth: 1, // Thickness of the border
     borderColor: "hsla(0, 0.00%, 100.00%, 0.1)", // Color of the border
@@ -748,7 +762,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   pagerView: {
-    height: 200,
+    height: 210,
   },
   eventsCont: {
     marginVertical: 10,
@@ -859,5 +873,17 @@ const styles = StyleSheet.create({
     fontFamily: "ProximaBold",
     textTransform: "uppercase",
     textAlign: "center",
+  },
+  dots: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 4,
   },
 });

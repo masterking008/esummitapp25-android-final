@@ -21,7 +21,7 @@ export const SegmentButton = (props: ISegmentButtonProps) => {
             key={index}
             style={[
               styles.button,
-              props.value === button && styles.selectedButton,
+              props.value === button && (props.value === 'seat reserved' ? styles.reservedButton : styles.selectedButton),
               index === 0 && {
                 borderTopLeftRadius: 20,
                 borderBottomLeftRadius: 20,
@@ -38,7 +38,7 @@ export const SegmentButton = (props: ISegmentButtonProps) => {
                 {
                   fontFamily: 'ProximaBold',
                   textTransform: 'uppercase',
-                  color: props.value === button ? '#1e1e1e' : '#FFFFFF',
+                  color: props.value === button ? (props.value === 'seat reserved' ? '#FFFFFF' : '#1e1e1e') : '#FFFFFF',
                 },
               ]}>
               {button}
@@ -67,6 +67,10 @@ const styles = {
   selectedButton: {
     backgroundColor: '#FFE100',
     borderColor: '#FFE100',
+  },
+  reservedButton: {
+    backgroundColor: '#4CAF50',
+    borderColor: '#4CAF50',
   },
   buttonText: {
     color: '#FFFFFF',

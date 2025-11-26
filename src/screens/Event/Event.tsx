@@ -85,15 +85,15 @@ export const Event = ({ route }) => {
       body: description
     }
 
-    const trigger = new Date(EventData?.data.startTime as string).getTime() + 15 * 60 * 1000;
+    const triggerDate = new Date(new Date(EventData?.data.startTime as string).getTime() - 15 * 60 * 1000);
     Notifications.scheduleNotificationAsync({
       content: notificationcontent,
-      trigger
+      trigger: { type: 'date', date: triggerDate }
     })
     // PushNotification.localNotificationSchedule({
     //   channelId: 'fcm_fallback_notification_channel',
     //   title: EventData?.data.name,
-    //   message: description,
+    //   f: description,
     //   date: new Date(
     //     new Date(EventData?.data.startTime as string).getTime() +
     //       15 * 50 * 1000,
